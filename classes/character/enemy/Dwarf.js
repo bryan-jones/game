@@ -13,17 +13,17 @@ var Dwarf = (function (_super) {
     function Dwarf() {
         var _this = _super.call(this, name) || this;
         _this.name = "Dwarf";
-        _this.hp = 400;
+        _this.hp = 200;
         _this.maxHp = _this.hp;
-        _this.str = 30;
-        _this.dex = 20;
-        _this.intel = 20;
-        _this.vit = 50;
-        _this.armor = 25;
-        _this.block = 5;
+        _this.str = 12;
+        _this.dex = 8;
+        _this.intel = 10;
+        _this.vit = 12;
+        _this.defense = 2;
+        _this.block = 0;
         _this.crit = 0;
         _this.exp = 150;
-        _this.image = "./classes/character/dwarf.jpg";
+        _this.image = "./classes/character/enemy/dwarf.jpg";
         return _this;
     }
     return Dwarf;

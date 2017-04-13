@@ -11,14 +11,15 @@ class Rat extends Enemy {
     constructor() {
     super(name);
     this.name = 'Rat';
-    this.hp = 200;
+    this.hp = 100;
     this.maxHp = this.hp;
-    this.str = 28;
-    this.dex = 50;
-    this.intel = 1;
-    this.vit = 2;
+    this.str = 8;
+    this.dex = 10;
+    this.intel = 3;
+    this.vit = 4;
     this.crit = 0;
     this.exp = 20;
-    this.image = "./classes/character/rat.png";
+    this.dodge = 10;
+    this.image = "./classes/character/enemy/rat.png";
   }
 };

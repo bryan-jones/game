@@ -29,6 +29,14 @@ var Enemy = (function (_super) {
     };
     Enemy.prototype.getExp = function () { return this.exp; };
     Enemy.prototype.setExp = function (exp) { this.exp = exp; };
+    Enemy.prototype.calcDef = function (damage, target) {
+        damage -= target.getDefense();
+        damage -= target.armor.getDefense();
+        if (damage < 1) {
+            damage = 1;
+        }
+        return damage;
+    };
     return Enemy;
 }(Character));
 ;

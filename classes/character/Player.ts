@@ -4,6 +4,8 @@
 class Player extends Character {
   private exp: number;
   private maxExp: number;
+  weapon: Weapon;
+  armor: Armor;
 
   constructor(name: string) {
     super(name);
@@ -21,7 +23,7 @@ class Player extends Character {
             dex: number = 10,
             intel: number = 10,
             vit: number = 10,
-            armor: number = 0,
+            defense: number = 0,
             block: number = 0,
             crit: number = 0,
             resistFire: number = 0,
@@ -33,7 +35,7 @@ class Player extends Character {
     this.intel = intel;
     this.vit = vit;
     this.block = block;
-    this.armor = armor;
+    this.defense = defense;
     this.crit = crit;
     this.resistFire = resistFire;
     this.resistIce = resistIce;
@@ -45,6 +47,26 @@ class Player extends Character {
   }
   setExp(exp: number) { this.exp = exp }
   setMaxExp(maxExp: number) { this.maxExp = maxExp }
+  setArmor(armor: Armor) { this.armor = armor }
+  setWeapon(weapon: Weapon) { this.weapon = weapon }
+
+  /** 
+   * Equip an item.
+   */
+  equipWeapon(item: Weapon) {
+    // Determine the item type.
+    if (item.getType() == 'weapon') {
+      this.weapon = item;
+    } else {
+      // Display text saying item can not be equipped.
+    }
+  }
+
+  equipArmor(item: Armor) {
+    if (item.getType() == 'armor') {
+      this.armor = item;
+    }
+  }
 
   /**
    * Render the character.
@@ -94,12 +116,24 @@ class Player extends Character {
          + '<p>Int ' + this.intel + '</p>'
          + '<p>Vit ' + this.vit + '</p>'
          + '<br><p>Defense</p>'
-         + '<p>Armor ' + this.armor + '</p>'
+         + '<p>Defense ' + this.defense + '</p>'
          + '<p>Block ' + this.block + '</p>'
          + '<br><p>Resistances</p>'
          + '<p>Fire ' + this.resistFire + '</p>'
          + '<p>Ice ' + this.resistIce + '</p>'
          + '<p>Lightning ' + this.resistLightning + '</p>'
          + '<p>Exp ' + this.exp + '/' + this.maxExp + '</p>';
+  }
+
+  calcDamage() {
+    var damage = 0;
+    damage = this.str;
+    
+    // Add weapon damage.
+    if (this.weapon) {
+      damage += this.weapon.getDamage();
+    }
+     
+    return damage;
   }
 };

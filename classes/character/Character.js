@@ -10,7 +10,7 @@ var Character = (function () {
         this.dex = 10;
         this.intel = 10;
         this.vit = 10;
-        this.armor = 0;
+        this.defense = 0;
         this.block = 0;
         this.dodge = 0;
         this.resistFire = 0;
@@ -29,7 +29,7 @@ var Character = (function () {
     Character.prototype.getDex = function () { return this.dex; };
     Character.prototype.getIntel = function () { return this.intel; };
     Character.prototype.getVit = function () { return this.vit; };
-    Character.prototype.getArmor = function () { return this.armor; };
+    Character.prototype.getDefense = function () { return this.defense; };
     Character.prototype.getBlock = function () { return this.block; };
     Character.prototype.getDodge = function () { return this.dodge; };
     Character.prototype.getResistFire = function () { return this.resistFire; };
@@ -37,7 +37,7 @@ var Character = (function () {
     Character.prototype.getResistLightning = function () { return this.resistLightning; };
     Character.prototype.getCrit = function () { return this.crit; };
     Character.prototype.getImage = function () { return this.image; };
-    Character.prototype.setStats = function (level, hp, mana, str, dex, intel, vit, armor, block, crit, resistFire, resistIce, resistLightning) {
+    Character.prototype.setStats = function (level, hp, mana, str, dex, intel, vit, defense, block, crit, resistFire, resistIce, resistLightning) {
         if (level === void 0) { level = 1; }
         if (hp === void 0) { hp = 10; }
         if (mana === void 0) { mana = 10; }
@@ -45,7 +45,7 @@ var Character = (function () {
         if (dex === void 0) { dex = 2; }
         if (intel === void 0) { intel = 2; }
         if (vit === void 0) { vit = 2; }
-        if (armor === void 0) { armor = 0; }
+        if (defense === void 0) { defense = 0; }
         if (block === void 0) { block = 0; }
         if (crit === void 0) { crit = 0; }
         if (resistFire === void 0) { resistFire = 0; }
@@ -61,7 +61,7 @@ var Character = (function () {
         this.intel = intel;
         this.vit = vit;
         this.block = block;
-        this.armor = armor;
+        this.defense = defense;
         this.crit = crit;
         this.resistFire = resistFire;
         this.resistIce = resistIce;
@@ -77,7 +77,7 @@ var Character = (function () {
     Character.prototype.setDex = function (dex) { this.dex = dex; };
     Character.prototype.setIntel = function (intel) { this.intel = intel; };
     Character.prototype.setVit = function (vit) { this.vit = vit; };
-    Character.prototype.setArmor = function (armor) { this.armor = armor; };
+    Character.prototype.setDefense = function (defense) { this.defense = defense; };
     Character.prototype.setBlock = function (block) { this.block = block; };
     Character.prototype.setDodge = function (dodge) { this.dodge = dodge; };
     Character.prototype.setCrit = function (crit) { this.crit = crit; };
@@ -91,7 +91,7 @@ var Character = (function () {
         var dodge = this.calcDodge(target);
         if (!dodge && !block) {
             var crit = ' hit ';
-            var damage = this.str;
+            var damage = this.calcDamage();
             var random = Math.floor((Math.random() * (this.str * 2)) - this.str);
             random = Math.floor(random * 0.15);
             damage += random;
@@ -131,19 +131,24 @@ var Character = (function () {
         }
         return dead;
     };
+    Character.prototype.calcDamage = function () {
+        var damage = 0;
+        damage = this.str;
+        return damage;
+    };
     Character.prototype.calcCrit = function (target) {
         var crit = 0;
         var userCrit = this.crit + Math.floor(this.dex / 4);
         var critChance = Math.floor((Math.random() * 100) + 1);
         console.log(this.name + ' crit chance = ' + userCrit);
-        var critChance = critChance - (target.getArmor() / 4);
+        var critChance = critChance - (target.getDefense() / 4);
         if (critChance <= userCrit) {
             crit = 1;
         }
         return crit;
     };
     Character.prototype.calcDef = function (damage, target) {
-        damage -= target.getArmor();
+        damage -= target.getDefense();
         if (damage < 1) {
             damage = 1;
         }
@@ -151,7 +156,8 @@ var Character = (function () {
     };
     Character.prototype.calcDodge = function (target) {
         var dodge = 0;
-        var dodgeChance = Math.floor(this.dex / 4);
+        var dodgeChance = this.dodge;
+        dodgeChance += Math.floor(this.dex / 4);
         var dodgeRange = Math.floor((Math.random() * 100) + 1);
         var reduction = dodgeChance - (target.getDex() / 4);
         dodgeChance -= reduction;

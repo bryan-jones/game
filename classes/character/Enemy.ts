@@ -38,4 +38,27 @@ class Enemy extends Character {
 
   // Declare getters.
   setExp(exp: number) { this.exp = exp }
+
+/**
+   * Calculate the attack damage after factoring in defense.
+   * 
+   * @param damage number
+   *   The base damage of the attacker.
+   * 
+   * @param target Character
+   *   The target that is being attacked.
+   */
+  calcDef(damage: number, target: Player) {
+    // Armor reduces damage. 
+    damage -= target.getDefense();
+
+    damage -= target.armor.getDefense();
+
+    // If damage is less than 1, set to 1.
+    if (damage < 1) {
+      damage = 1;
+    }
+
+    return damage;
+  }
 };

@@ -8,26 +8,24 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var Ogre = (function (_super) {
-    __extends(Ogre, _super);
-    function Ogre() {
+var Rat = (function (_super) {
+    __extends(Rat, _super);
+    function Rat() {
         var _this = _super.call(this, name) || this;
-        _this.name = 'Ogre';
-        _this.hp = 600;
+        _this.name = 'Rat';
+        _this.hp = 100;
         _this.maxHp = _this.hp;
-        _this.str = 45;
-        _this.dex = 15;
-        _this.intel = 10;
-        _this.vit = 30;
-        _this.armor = 2;
-        _this.resistFire = 10;
-        _this.resistLightning = -5;
+        _this.str = 8;
+        _this.dex = 10;
+        _this.intel = 3;
+        _this.vit = 4;
         _this.crit = 0;
-        _this.exp = 80;
-        _this.image = "./classes/character/ogre.jpg";
+        _this.exp = 20;
+        _this.dodge = 10;
+        _this.image = "./classes/character/enemy/rat.png";
         return _this;
     }
-    return Ogre;
+    return Rat;
 }(Enemy));
 ;
-//# sourceMappingURL=Ogre.js.map
+//# sourceMappingURL=Rat.js.map

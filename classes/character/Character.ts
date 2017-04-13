@@ -12,7 +12,7 @@ abstract class Character {
   protected dex: number;
   protected intel: number;
   protected vit: number;
-  protected armor: number;
+  protected defense: number;
   protected block: number;
   protected dodge: number;
   protected resistFire: number;
@@ -37,7 +37,7 @@ abstract class Character {
     this.dex = 10;
     this.intel = 10;
     this.vit = 10;
-    this.armor = 0;
+    this.defense = 0;
     this.block = 0;
     this.dodge = 0;
     this.resistFire = 0;
@@ -58,7 +58,7 @@ abstract class Character {
   getDex() { return this.dex }
   getIntel() { return this.intel }
   getVit() { return this.vit }
-  getArmor() { return this.armor }
+  getDefense() { return this.defense }
   getBlock() { return this.block }
   getDodge() { return this.dodge }
   getResistFire() { return this.resistFire }
@@ -69,18 +69,18 @@ abstract class Character {
 
   // Declare setters.
   setStats( level: number = 1,
-                      hp: number = 10,
-                      mana: number = 10,
-                      str: number = 2,
-                      dex: number = 2,
-                      intel: number = 2,
-                      vit: number = 2,
-                      armor: number = 0,
-                      block: number = 0,
-                      crit: number = 0,
-                      resistFire: number = 0,
-                      resistIce: number = 0,
-                      resistLightning: number = 0 ) {
+            hp: number = 10,
+            mana: number = 10,
+            str: number = 2,
+            dex: number = 2,
+            intel: number = 2,
+            vit: number = 2,
+            defense: number = 0,
+            block: number = 0,
+            crit: number = 0,
+            resistFire: number = 0,
+            resistIce: number = 0,
+            resistLightning: number = 0 ) {
     this.level = level;
     this.hp = hp;
     this.maxHp = hp;
@@ -91,7 +91,7 @@ abstract class Character {
     this.intel = intel;
     this.vit = vit;
     this.block = block;
-    this.armor = armor;
+    this.defense = defense;
     this.crit = crit;
     this.resistFire = resistFire;
     this.resistIce = resistIce;
@@ -107,7 +107,7 @@ abstract class Character {
   setDex(dex: number) { this.dex = dex }
   setIntel(intel: number) { this.intel = intel }
   setVit(vit: number) { this.vit = vit }
-  setArmor(armor: number) { this.armor = armor }
+  setDefense(defense: number) { this.defense = defense }
   setBlock(block: number) { this.block = block }
   setDodge(dodge: number) { this.dodge = dodge }
   setCrit(crit: number) { this.crit = crit }
@@ -134,8 +134,8 @@ abstract class Character {
       // Was it a critical hit?
       var crit = ' hit ';
 
-      // Set base damage from strength.
-      var damage = this.str;
+      // Calculate base damage.
+      var damage = this.calcDamage();
 
       // Add a randomizer value.
       var random = Math.floor((Math.random() * (this.str * 2)) - this.str);
@@ -189,6 +189,12 @@ abstract class Character {
     return dead;
   }
 
+  calcDamage() {
+    var damage = 0;
+    damage = this.str;
+    return damage;
+  }
+
   /**
    * Calculate the characters chance to critically hit.
    * 
@@ -207,7 +213,7 @@ abstract class Character {
     console.log(this.name + ' crit chance = ' + userCrit);
 
     // Add natural armor reduction.
-    var critChance = critChance - (target.getArmor() / 4);
+    var critChance = critChance - (target.getDefense() / 4);
 
     if (critChance <= userCrit) {
       crit = 1;
@@ -227,7 +233,7 @@ abstract class Character {
    */
   calcDef(damage: number, target: Character) {
     // Armor reduces damage. 
-    damage -= target.getArmor();
+    damage -= target.getDefense();
 
     // If damage is less than 1, set to 1.
     if (damage < 1) {
@@ -247,7 +253,8 @@ abstract class Character {
     var dodge = 0;
 
     // Add in dodge chance.
-    var dodgeChance = Math.floor(this.dex / 4);
+    var dodgeChance = this.dodge;
+    dodgeChance += Math.floor(this.dex / 4);
     var dodgeRange = Math.floor((Math.random() * 100) + 1);
     
     // Now this chance is reduced by the opponent's dexterity.

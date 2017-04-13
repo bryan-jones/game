@@ -18,13 +18,13 @@ var Player = (function (_super) {
     }
     Player.prototype.getExp = function () { return this.exp; };
     Player.prototype.getMaxExp = function () { return this.maxExp; };
-    Player.prototype.setStats = function (level, str, dex, intel, vit, armor, block, crit, resistFire, resistIce, resistLightning) {
+    Player.prototype.setStats = function (level, str, dex, intel, vit, defense, block, crit, resistFire, resistIce, resistLightning) {
         if (level === void 0) { level = 1; }
         if (str === void 0) { str = 10; }
         if (dex === void 0) { dex = 10; }
         if (intel === void 0) { intel = 10; }
         if (vit === void 0) { vit = 10; }
-        if (armor === void 0) { armor = 0; }
+        if (defense === void 0) { defense = 0; }
         if (block === void 0) { block = 0; }
         if (crit === void 0) { crit = 0; }
         if (resistFire === void 0) { resistFire = 0; }
@@ -36,7 +36,7 @@ var Player = (function (_super) {
         this.intel = intel;
         this.vit = vit;
         this.block = block;
-        this.armor = armor;
+        this.defense = defense;
         this.crit = crit;
         this.resistFire = resistFire;
         this.resistIce = resistIce;
@@ -48,6 +48,20 @@ var Player = (function (_super) {
     };
     Player.prototype.setExp = function (exp) { this.exp = exp; };
     Player.prototype.setMaxExp = function (maxExp) { this.maxExp = maxExp; };
+    Player.prototype.setArmor = function (armor) { this.armor = armor; };
+    Player.prototype.setWeapon = function (weapon) { this.weapon = weapon; };
+    Player.prototype.equipWeapon = function (item) {
+        if (item.getType() == 'weapon') {
+            this.weapon = item;
+        }
+        else {
+        }
+    };
+    Player.prototype.equipArmor = function (item) {
+        if (item.getType() == 'armor') {
+            this.armor = item;
+        }
+    };
     Player.prototype.render = function () {
         var output = '<img src="' + this.image + '"/>'
             + '<p>Name: ' + this.name + '<br>'
@@ -83,13 +97,21 @@ var Player = (function (_super) {
             + '<p>Int ' + this.intel + '</p>'
             + '<p>Vit ' + this.vit + '</p>'
             + '<br><p>Defense</p>'
-            + '<p>Armor ' + this.armor + '</p>'
+            + '<p>Defense ' + this.defense + '</p>'
             + '<p>Block ' + this.block + '</p>'
             + '<br><p>Resistances</p>'
             + '<p>Fire ' + this.resistFire + '</p>'
             + '<p>Ice ' + this.resistIce + '</p>'
             + '<p>Lightning ' + this.resistLightning + '</p>'
             + '<p>Exp ' + this.exp + '/' + this.maxExp + '</p>';
+    };
+    Player.prototype.calcDamage = function () {
+        var damage = 0;
+        damage = this.str;
+        if (this.weapon) {
+            damage += this.weapon.getDamage();
+        }
+        return damage;
     };
     return Player;
 }(Character));

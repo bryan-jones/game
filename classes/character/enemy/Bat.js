@@ -13,15 +13,16 @@ var Bat = (function (_super) {
     function Bat(name) {
         var _this = _super.call(this, name) || this;
         _this.name = "Bat";
-        _this.hp = 100;
+        _this.hp = 40;
         _this.maxHp = _this.hp;
-        _this.str = 28;
-        _this.dex = 150;
-        _this.intel = 30;
-        _this.vit = 20;
+        _this.str = 6;
+        _this.dex = 12;
+        _this.intel = 4;
+        _this.vit = 4;
         _this.crit = 0;
+        _this.dodge = 20;
         _this.exp = 10;
-        _this.image = "./classes/character/bat.png";
+        _this.image = "./classes/character/enemy/bat.png";
         return _this;
     }
     return Bat;

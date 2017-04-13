@@ -7,9 +7,18 @@ $( document ).ready(function() {
 
   // Create the player.
   var player = new Player('Bartuc');
-  player.setStats(1, 60, 60, 60, 60);
+  player.setStats(1, 10, 10, 10, 10);
   player.setImage('./classes/character/player.jpg');
   player.render();
+
+  // Create a club and equip it on the player.
+  var club = new Club();
+  player.equipWeapon(club);
+
+  // Create some cloth armor and equip it.
+  var cloth = new Cloth();
+  player.equipArmor(cloth);
+
   enemies = [];
 
   // Create an enemy.
