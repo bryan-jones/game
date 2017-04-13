@@ -1,0 +1,54 @@
+#button {
+  background-color: #a00;
+  border: 1px solid #000;
+  clear: both;
+  color: #fff;
+  cursor: pointer;
+  font-size: 150%;
+  margin: 30px auto 10px;
+  padding: 20px 30px;
+  text-align: center;
+  width: 200px;
+}
+
+.button:hover {
+  background-color: #600;
+}
+
+.dodged {
+  color: #00c;
+}
+
+.crit {
+  color: #c00;
+}
+
+.blocked {
+  color: #d0d;
+}
+
+#text {
+  text-align: center;
+}
+
+#left {
+  float: left;
+  width: 50%;
+}
+
+ #left img {
+   max-height: 30vh;
+   overflow: hidden;
+   width: auto;
+ }
+
+#right {
+  float: left;
+  width: 50%;
+}
+
+#right img {
+   max-height: 30vh;
+   overflow: hidden;
+   width: auto;
+}

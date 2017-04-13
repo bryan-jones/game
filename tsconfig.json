@@ -1,0 +1,14 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "removeComments": true,
+    "sourceMap": true,
+    "noImplicitAny": true
+  },
+  "include": [
+    "classes/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
