@@ -1,0 +1,244 @@
+Some ideas on classes:
+
+Classes
+-------
+
+Knight
+	Str + 4
+  Dex + 4
+  Int + 1
+  Vit + 4
+  Block + 3
+  Dodge + 0
+  Crit + 0
+  Fire Resist + 5
+	Ice Resist + 5
+	Lightning Resist + 5
+
+Warrior
+  Str + 6
+  Dex + 4
+  Int + 1
+  Vit + 4
+  Block + 0
+  Dodge + 0
+  Crit + 1
+  Fire Resist + 3
+	Ice Resist + 2
+	Lightning Resist + 1
+
+Bezerker
+	Str + 8
+  Dex + 2
+  Int + 0
+  Vit + 2
+  Block + 0
+  Dodge + 1
+  Crit + 2
+  Fire Resist + 0
+	Ice Resist + 0
+	Lightning Resist + 0
+
+Conqueror
+	Str + 4
+  Dex + 2
+  Int + 0
+  Vit + 6
+  Block + 1
+  Dodge + 1
+  Crit + 1
+  Fire Resist + 2
+	Ice Resist + 2
+	Lightning Resist + 1
+
+Champion
+	Str + 4
+  Dex + 4
+  Int + 1
+  Vit + 4
+  Block + 2
+  Dodge + 1
+  Crit + 0
+  Fire Resist + 1
+	Ice Resist + 1
+	Lightning Resist + 0
+
+Templar
+	Str + 3
+  Dex + 4
+  Int + 4
+  Vit + 2
+  Block + 2
+  Dodge + 0
+  Crit + 0
+  Fire Resist + 4
+	Ice Resist + 4
+	Lightning Resist + 4
+
+Thief
+	Str + 3
+  Dex + 6
+  Int + 1
+  Vit + 2
+  Block + 0
+  Dodge + 2
+  Crit + 2
+  Fire Resist + 0
+	Ice Resist + 0
+	Lightning Resist + 0
+
+Assassin
+	Str + 3
+  Dex + 5
+  Int + 2
+  Vit + 2
+  Block + 0
+  Dodge + 0
+  Crit + 5
+  Fire Resist + 1
+	Ice Resist + 1
+	Lightning Resist + 1
+
+Monk
+	Str + 2
+  Dex + 5
+  Int + 4
+  Vit + 2
+  Block + 0
+  Dodge + 4
+  Crit + 1
+  Fire Resist + 2
+	Ice Resist + 2
+	Lightning Resist + 2
+
+Ninja
+	Str + 6
+  Dex + 6
+  Int + 1
+  Vit + 1
+  Block + 0
+  Dodge + 2
+  Crit + 2
+  Fire Resist + 0
+	Ice Resist + 0
+	Lightning Resist + 0
+
+Spellblade
+	Str + 2
+  Dex + 6
+  Int + 4
+  Vit + 3
+  Block + 0
+  Dodge + 0
+  Crit + 2
+  Fire Resist + 2
+	Ice Resist + 2
+	Lightning Resist + 2
+
+Hunter
+	Str + 3
+  Dex + 5
+  Int + 3
+  Vit + 2
+  Block + 0
+  Dodge + 1
+  Crit + 3
+  Fire Resist + 0
+	Ice Resist + 0
+	Lightning Resist + 0
+
+Peltast
+	Str + 5
+  Dex + 5
+  Int + 1
+  Vit + 2
+  Block + 0
+  Dodge + 0
+  Crit + 4
+  Fire Resist + 1
+	Ice Resist + 1
+	Lightning Resist + 1
+
+Druid
+	Str + 3
+  Dex + 3
+  Int + 3
+  Vit + 3
+  Block + 2
+  Dodge + 2
+  Crit + 2
+  Fire Resist + 1
+	Ice Resist + 1
+	Lightning Resist + 1
+
+Cleric
+	Str + 2
+  Dex + 2
+  Int + 4
+  Vit + 5
+  Block + 2
+  Dodge + 0
+  Crit + 0
+  Fire Resist + 2
+	Ice Resist + 4
+	Lightning Resist + 2
+
+Necromancer
+	Str + 0
+  Dex + 3
+  Int + 6
+  Vit + 4
+  Block + 0
+  Dodge + 0
+  Crit + 0
+  Fire Resist + 3
+	Ice Resist + 3
+	Lightning Resist + 3
+
+Wizard
+	Str + 0
+  Dex + 4
+  Int + 7
+  Vit + 3
+  Block + 0
+  Dodge + 0
+  Crit + 2
+  Fire Resist + 2
+	Ice Resist + 0
+	Lightning Resist + 5
+
+Sorceror
+	Str + 1
+  Dex + 2
+  Int + 6
+  Vit + 4
+  Block + 0
+  Dodge + 1
+  Crit + 2
+  Fire Resist + 5
+	Ice Resist + 0
+	Lightning Resist + 0
+
+Shadowcaster
+	Str + 4
+  Dex + 2
+  Int + 4
+  Vit + 2
+  Block + 0
+  Dodge + 1
+  Crit + 1
+  Fire Resist + 3
+	Ice Resist + 2
+	Lightning Resist + 1
+
+Angelic Mage
+	Str + 2
+  Dex + 4
+  Int + 5
+  Vit + 2
+  Block + 1
+  Dodge + 1
+  Crit + 1
+  Fire Resist + 1
+	Ice Resist + 1
+	Lightning Resist + 1
