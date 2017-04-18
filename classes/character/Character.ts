@@ -66,6 +66,22 @@ abstract class Character {
   getResistLightning() { return this.resistLightning }
   getCrit() { return this.crit }
   getImage() { return this.image }
+  getHpPercent() {
+    var health = this.hp / this.maxHp;
+    health = Math.floor(health * 100);
+    if (health < 0) {
+      health = 0;
+    }
+    return health;
+  }
+  getManaPercent() {
+    var mana = this.mana / this.maxMana;
+    mana = Math.floor(mana * 100);
+    if (mana < 0) {
+      mana = 0;
+    }
+    return mana;
+  }
 
   // Declare setters.
   setStats( level: number = 1,

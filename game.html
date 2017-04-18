@@ -5,6 +5,33 @@
     <link href="css/styles.css" rel="stylesheet" type="text/css">
   </head>
   <body>
+
+    <div id="user-bar-wrapper">
+      <div id="user-bar" class="menu">
+        <div id="name" class="first bar">
+          <span id="user-name">Unknown</span>
+        </div>
+        <div id="health" class="liquid-bar">
+          <div class="liquid-wrapper">
+            <div id="health-bar" class="bar"></div>
+            <span id="user-health" class="bar-text">0 / 0</span>
+          </div>
+        </div>
+        <div id="mana" class="liquid-bar">
+          <div class="liquid-wrapper">
+            <div id="mana-bar" class="bar"></div>
+            <span id="user-mana" class="bar-text">0 / 0</span>
+          </div>
+        </div>
+        <div id="experience" class="liquid-bar">
+          <div class="liquid-wrapper">
+            <div id="experience-bar" class="bar"></div>
+            <span id="user-experience" class="bar-text">0 / 0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="libraries/jquery-3.2.1.min.js"></script>
     <script src="classes/character/Character.js"></script>
     <script src="classes/character/Enemy.js"></script>

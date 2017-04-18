@@ -13,7 +13,7 @@ var Player = (function (_super) {
     function Player(name) {
         var _this = _super.call(this, name) || this;
         _this.exp = 0;
-        _this.maxExp = 100;
+        _this.maxExp = 1000;
         return _this;
     }
     Player.prototype.getExp = function () { return this.exp; };
@@ -50,6 +50,14 @@ var Player = (function (_super) {
     Player.prototype.setMaxExp = function (maxExp) { this.maxExp = maxExp; };
     Player.prototype.setArmor = function (armor) { this.armor = armor; };
     Player.prototype.setWeapon = function (weapon) { this.weapon = weapon; };
+    Player.prototype.getExpPercent = function () {
+        var exp = this.exp / this.maxExp;
+        exp = Math.floor(exp * 100);
+        if (exp < 0) {
+            exp = 0;
+        }
+        return exp;
+    };
     Player.prototype.equipWeapon = function (item) {
         if (item.getType() == 'weapon') {
             this.weapon = item;
@@ -87,24 +95,6 @@ var Player = (function (_super) {
         newMana += this.intel * 4;
         return newMana;
     };
-    Player.prototype.print = function () {
-        return '<h1>' + this.name + '</h1>'
-            + '<p>Level ' + this.level + '</p>'
-            + '<p>HP ' + this.hp + '/' + this.maxHp + '</p>'
-            + '<p>Mana ' + this.mana + '/' + this.maxMana + '</p>'
-            + '<p>Str ' + this.str + '</p>'
-            + '<p>Dex ' + this.dex + '</p>'
-            + '<p>Int ' + this.intel + '</p>'
-            + '<p>Vit ' + this.vit + '</p>'
-            + '<br><p>Defense</p>'
-            + '<p>Defense ' + this.defense + '</p>'
-            + '<p>Block ' + this.block + '</p>'
-            + '<br><p>Resistances</p>'
-            + '<p>Fire ' + this.resistFire + '</p>'
-            + '<p>Ice ' + this.resistIce + '</p>'
-            + '<p>Lightning ' + this.resistLightning + '</p>'
-            + '<p>Exp ' + this.exp + '/' + this.maxExp + '</p>';
-    };
     Player.prototype.calcDamage = function () {
         var damage = 0;
         damage = this.str;
@@ -112,6 +102,35 @@ var Player = (function (_super) {
             damage += this.weapon.getDamage();
         }
         return damage;
+    };
+    Player.prototype.readjustStats = function () {
+        this.strUp = this.str;
+        this.strUp += this.weapon.getStr();
+        this.strUp += this.armor.getStr();
+        this.dexUp = this.dex;
+        this.dexUp += this.weapon.getDex();
+        this.dexUp += this.armor.getDex();
+        this.intelUp = this.intel;
+        this.intelUp += this.weapon.getIntel();
+        this.intelUp += this.armor.getIntel();
+        this.vitUp = this.vit;
+        this.vitUp += this.weapon.getVit();
+        this.vitUp += this.armor.getVit();
+        this.blockUp = this.block;
+        this.blockUp += this.weapon.getBlock();
+        this.blockUp += this.armor.getBlock();
+        this.dodgeUp = this.dodge;
+        this.dodgeUp += this.weapon.getDodge();
+        this.dodgeUp += this.armor.getDodge();
+        this.critUp = this.crit;
+        this.critUp += this.weapon.getCrit();
+        this.critUp += this.armor.getCrit();
+        this.resistFireUp = this.resistFire;
+        this.resistFireUp += this.armor.getResistFire();
+        this.resistIceUp = this.resistIce;
+        this.resistIceUp += this.armor.getResistIce();
+        this.resistLightningUp = this.resistLightning;
+        this.resistLightningUp += this.armor.getResistLightning();
     };
     return Player;
 }(Character));

@@ -1,3 +1,157 @@
+body {
+  margin: 0 0 55px 0;
+}
+
+ul {
+  margin-top: 0;
+  padding: 0;
+}
+
+#user-bar-wrapper * {
+  -moz-user-select: none;
+  user-select: none;
+}
+
+#user-bar-wrapper {
+  background-color: #ddd;
+  border-bottom: 1px solid #bbb;
+  bottom: 0;
+  height: 50px;
+  position: fixed;
+  width: 100%;
+}
+
+#user-bar {
+  margin: 0;
+  position: relative;
+}
+
+#user-bar div {
+  text-shadow: -1px -1px 0 #aaa, 1px 1px 0 #eee;
+}
+
+#user-bar > div {
+  cursor: pointer;
+  display: block;
+  float: left;
+  padding: 5px 20px;
+  position: relative;
+  width: auto;
+}
+
+/*
+#user-bar > li:hover {
+  background-color: #bbb;
+}
+
+#user-bar > li:hover > ul {
+  display: block;
+}
+
+#user-bar ul {
+  background-color: #ddd;
+  border: 1px solid #bbb;
+  bottom: 39px;
+  display: none;
+  left: 0;
+  list-style: none;
+  margin-top: 10px;
+  min-width: 150px;
+  position: absolute;
+}
+
+#user-bar ul li {
+  padding: 10px 20px;
+}
+
+#user-bar ul li:hover {
+  background-color: #bbb;
+}
+
+#user-bar ul li:not(last-child) {
+  border-bottom: 1px solid #cfcfcf;
+}*/
+
+#user-bar #name {
+  font-size: 160%;
+  padding-top: 10px;
+}
+
+.liquid-wrapper {
+  background-color: #777;
+  border: 1px solid #555;
+  border-radius: 10px;
+  display: block;
+  height: 39px;
+  overflow: hidden;
+  position: relative;
+  width: 200px;
+}
+
+.bar {
+  display: absolute;
+  height: inherit;
+  width: 100%;
+}
+
+#health-bar {
+  background-color: #a00;
+}
+
+#mana-bar {
+  background-color: #00a;
+}
+
+#experience-bar {
+  background-color: #0a0;
+  width: 0;
+}
+
+.bar-text {
+  bottom: 9px;
+  color: #fff;
+  position: absolute;
+  text-align: center;
+  text-shadow: none;
+  width: 100%;
+  z-index: 5;
+}
+
+#save {
+  color: #aaa;
+  cursor: default;
+}
+
+#save:hover {
+  background-color: transparent !important;
+}
+
+#new-prompt {
+  background-color: #ddd;
+  border: 1px solid #bbb;
+  box-shadow: 5px 5px 5px 0 #888;
+  height: 80vh;
+  left: 10vw;
+  position: absolute;
+  top: calc(10vh + 20px);
+  width: 80vw;
+  z-index: 10;
+}
+
+#new-prompt h1 {
+  padding-left: 20px;
+}
+
+#new-prompt label {
+  padding-left: 20px;
+  padding-right: 8px;
+  width: 100%;
+}
+
+#new-prompt input {
+  margin-bottom: 10px;
+}
+
 #button {
   background-color: #a00;
   border: 1px solid #000;

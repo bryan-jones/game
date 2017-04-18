@@ -11,9 +11,9 @@ class Ogre extends Enemy {
     constructor() {
     super(name);
     this.name = 'Ogre';
-    this.hp = 300;
+    this.hp = 270;
     this.maxHp = this.hp;
-    this.str = 15;
+    this.str = 10;
     this.dex = 2;
     this.intel = 1;
     this.vit = 12;

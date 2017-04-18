@@ -11,7 +11,7 @@ class Dwarf extends Enemy {
     constructor() {
     super(name);
     this.name = "Dwarf";
-    this.hp = 200;
+    this.hp = 180;
     this.maxHp = this.hp;
     this.str = 12;
     this.dex = 8;

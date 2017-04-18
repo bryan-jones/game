@@ -25,7 +25,7 @@ class Player extends Character {
   constructor(name: string) {
     super(name);
     this.exp = 0;
-    this.maxExp = 100;
+    this.maxExp = 1000;
   }
 
   // Declare getters.
@@ -64,6 +64,14 @@ class Player extends Character {
   setMaxExp(maxExp: number) { this.maxExp = maxExp }
   setArmor(armor: Armor) { this.armor = armor }
   setWeapon(weapon: Weapon) { this.weapon = weapon }
+  getExpPercent() {
+    var exp = this.exp / this.maxExp;
+    exp = Math.floor(exp * 100);
+    if (exp < 0) {
+      exp = 0;
+    }
+    return exp;
+  }
 
   /** 
    * Equip an item.

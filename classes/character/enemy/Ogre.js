@@ -13,9 +13,9 @@ var Ogre = (function (_super) {
     function Ogre() {
         var _this = _super.call(this, name) || this;
         _this.name = 'Ogre';
-        _this.hp = 300;
+        _this.hp = 270;
         _this.maxHp = _this.hp;
-        _this.str = 15;
+        _this.str = 10;
         _this.dex = 2;
         _this.intel = 1;
         _this.vit = 12;

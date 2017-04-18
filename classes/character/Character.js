@@ -37,6 +37,22 @@ var Character = (function () {
     Character.prototype.getResistLightning = function () { return this.resistLightning; };
     Character.prototype.getCrit = function () { return this.crit; };
     Character.prototype.getImage = function () { return this.image; };
+    Character.prototype.getHpPercent = function () {
+        var health = this.hp / this.maxHp;
+        health = Math.floor(health * 100);
+        if (health < 0) {
+            health = 0;
+        }
+        return health;
+    };
+    Character.prototype.getManaPercent = function () {
+        var mana = this.mana / this.maxMana;
+        mana = Math.floor(mana * 100);
+        if (mana < 0) {
+            mana = 0;
+        }
+        return mana;
+    };
     Character.prototype.setStats = function (level, hp, mana, str, dex, intel, vit, defense, block, crit, resistFire, resistIce, resistLightning) {
         if (level === void 0) { level = 1; }
         if (hp === void 0) { hp = 10; }

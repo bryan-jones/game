@@ -13,7 +13,7 @@ var Dwarf = (function (_super) {
     function Dwarf() {
         var _this = _super.call(this, name) || this;
         _this.name = "Dwarf";
-        _this.hp = 200;
+        _this.hp = 180;
         _this.maxHp = _this.hp;
         _this.str = 12;
         _this.dex = 8;
