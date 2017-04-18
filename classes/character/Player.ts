@@ -2,8 +2,23 @@
  * Create a player class.
  */
 class Player extends Character {
-  private exp: number;
-  private maxExp: number;
+  protected exp: number;
+  protected maxExp: number;
+
+  // Create new variables for stats that have been adjusted.
+  protected maxHpUp: number;
+  protected maxManaUp: number;
+  protected strUp: number;
+  protected dexUp: number;
+  protected intelUp: number;
+  protected vitUp: number;
+  protected defenseUp: number;
+  protected blockUp: number;
+  protected dodgeUp: number;
+  protected critUp: number;
+  protected resistFireUp: number;
+  protected resistIceUp: number;
+  protected resistLightningUp: number;
   weapon: Weapon;
   armor: Armor;
 
@@ -106,25 +121,6 @@ class Player extends Character {
     return newMana;
   }
 
-  print() {
-    return '<h1>' + this.name + '</h1>' 
-         + '<p>Level ' + this.level + '</p>'
-         + '<p>HP ' + this.hp + '/' + this.maxHp + '</p>'
-         + '<p>Mana ' + this.mana + '/' + this.maxMana + '</p>'
-         + '<p>Str ' + this.str + '</p>'
-         + '<p>Dex ' + this.dex + '</p>'
-         + '<p>Int ' + this.intel + '</p>'
-         + '<p>Vit ' + this.vit + '</p>'
-         + '<br><p>Defense</p>'
-         + '<p>Defense ' + this.defense + '</p>'
-         + '<p>Block ' + this.block + '</p>'
-         + '<br><p>Resistances</p>'
-         + '<p>Fire ' + this.resistFire + '</p>'
-         + '<p>Ice ' + this.resistIce + '</p>'
-         + '<p>Lightning ' + this.resistLightning + '</p>'
-         + '<p>Exp ' + this.exp + '/' + this.maxExp + '</p>';
-  }
-
   calcDamage() {
     var damage = 0;
     damage = this.str;
@@ -135,5 +131,53 @@ class Player extends Character {
     }
      
     return damage;
+  }
+
+  /**
+   * Readjust all stats.
+   */
+  readjustStats() {
+    // Strength.
+    this.strUp = this.str;
+    this.strUp += this.weapon.getStr();
+    this.strUp += this.armor.getStr();
+
+    // Dexterity.
+    this.dexUp = this.dex;
+    this.dexUp += this.weapon.getDex();
+    this.dexUp += this.armor.getDex();
+
+    // Intelligence.
+    this.intelUp = this.intel;
+    this.intelUp += this.weapon.getIntel();
+    this.intelUp += this.armor.getIntel();
+
+    // Vitility.
+    this.vitUp = this.vit;
+    this.vitUp += this.weapon.getVit();
+    this.vitUp += this.armor.getVit();
+
+    // Block.
+    this.blockUp = this.block;
+    this.blockUp += this.weapon.getBlock();
+    this.blockUp += this.armor.getBlock();
+
+    // Dodge.
+    this.dodgeUp = this.dodge;
+    this.dodgeUp += this.weapon.getDodge();
+    this.dodgeUp += this.armor.getDodge();
+
+    // Crit.
+    this.critUp = this.crit;
+    this.critUp += this.weapon.getCrit();
+    this.critUp += this.armor.getCrit();
+
+    // Resistances.
+    this.resistFireUp = this.resistFire;
+    this.resistFireUp += this.armor.getResistFire();
+    this.resistIceUp = this.resistIce;
+    this.resistIceUp += this.armor.getResistIce();
+    this.resistLightningUp = this.resistLightning;
+    this.resistLightningUp += this.armor.getResistLightning();
   }
 };
