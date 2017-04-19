@@ -1,5 +1,5 @@
 body {
-  margin: 0 0 55px 0;
+  margin: 0 0 75px 0;
 }
 
 ul {
@@ -39,39 +39,7 @@ ul {
   width: auto;
 }
 
-/*
-#user-bar > li:hover {
-  background-color: #bbb;
-}
-
-#user-bar > li:hover > ul {
-  display: block;
-}
-
-#user-bar ul {
-  background-color: #ddd;
-  border: 1px solid #bbb;
-  bottom: 39px;
-  display: none;
-  left: 0;
-  list-style: none;
-  margin-top: 10px;
-  min-width: 150px;
-  position: absolute;
-}
-
-#user-bar ul li {
-  padding: 10px 20px;
-}
-
-#user-bar ul li:hover {
-  background-color: #bbb;
-}
-
-#user-bar ul li:not(last-child) {
-  border-bottom: 1px solid #cfcfcf;
-}*/
-
+#user-bar #level,
 #user-bar #name {
   font-size: 160%;
   padding-top: 10px;

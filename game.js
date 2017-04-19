@@ -2,22 +2,12 @@ $( document ).ready(function() {
   // Initialize UI.
   initUI();
 
-  // Create a button that says "Fight".
-  document.body.innerHTML += '<div id="left"></div>';
-  document.body.innerHTML += '<div id="right"></div>';
-  document.body.innerHTML += '<div id="button">Fight</div>';
-  document.body.innerHTML += '<div id="text"></div>';
-
   // Create the player.
-  var player = new Player('Bartuc');
-  player.setStats(1, 10, 10, 10, 10);
+  var player = new Berserker('Bartuc');
   player.setImage('./classes/character/player.jpg');
   player.render();
-
   $('#user-name').text(player.getName());
-  $('#user-health').text(player.getHp() + ' / ' + player.getMaxHp());
-  $('#user-mana').text(player.getMana() + ' / ' + player.getMaxMana());
-  $('#user-experience').text(player.getExp() + ' / ' + player.getMaxExp());
+  updateStats(player);
 
   // Create a club and equip it on the player.
   var club = new Club();
@@ -68,12 +58,7 @@ $( document ).ready(function() {
       player.setExp(0);
     }
 
-    $('#user-health').text(player.getHp() + ' / ' + player.getMaxHp());
-    $('#user-mana').text(player.getMana() + ' / ' + player.getMaxMana());
-    $('#user-experience').text(player.getExp() + ' / ' + player.getMaxExp());
-    $('#health-bar').css('width', player.getHpPercent() + '%');
-    $('#mana-bar').css('width', player.getManaPercent() + '%');
-    $('#experience-bar').css('width', player.getExpPercent() + '%');
+    updateStats(player);
 
     enemy.setHp(enemy.getMaxHp());
     player.setHp(player.getMaxHp());
@@ -84,6 +69,21 @@ $( document ).ready(function() {
  * Build the basic UI.
  */
 function initUI() {
+  // Create a button that says "Fight".
+  document.body.innerHTML += '<div id="left"></div>';
+  document.body.innerHTML += '<div id="right"></div>';
+  document.body.innerHTML += '<div id="button">Fight</div>';
+  document.body.innerHTML += '<div id="text"></div>';
+}
 
-
+function updateStats(player) {
+  player.levelUp();
+  player.render();
+  $('#user-level').text(player.getLevel());
+  $('#user-health').text(player.getHp() + ' / ' + player.getMaxHp());
+  $('#user-mana').text(player.getMana() + ' / ' + player.getMaxMana());
+  $('#user-experience').text('Exp: ' + player.getExp() + ' / ' + player.getMaxExp());
+  $('#health-bar').css('width', player.getHpPercent() + '%');
+  $('#mana-bar').css('width', player.getManaPercent() + '%');
+  $('#experience-bar').css('width', player.getExpPercent() + '%');
 }

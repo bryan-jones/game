@@ -25,7 +25,7 @@ class Player extends Character {
   constructor(name: string) {
     super(name);
     this.exp = 0;
-    this.maxExp = 1000;
+    this.maxExp = 200;
   }
 
   // Declare getters.
@@ -92,6 +92,35 @@ class Player extends Character {
   }
 
   /**
+   * Update base stats by level.
+   */
+  levelUp() {
+    if (this.exp > this.maxExp) {
+      // Add a level and reset exp.
+      this.level += 1;
+      var extraExp = this.exp - this.maxExp;
+      //this.maxExp += 1000;
+      this.exp = extraExp;
+
+      // Update base stats.
+      var newLevel = this.level - 1;
+      this.str = 10 + newLevel * 2;
+      this.dex = 10 + newLevel * 2;
+      this.intel = 10 + newLevel * 2;
+      this.vit = 10 + newLevel * 2;
+
+      // Update health and mana.
+      this.maxHp = this.calculateHp();
+      this.hp = this.maxHp;
+      this.maxMana = this.calculateMana();
+      this.mana = this.maxMana;
+
+      // Readjust all stats.
+      this.readjustStats();
+    }
+  }
+
+  /**
    * Render the character.
    */
   render() {
@@ -103,6 +132,12 @@ class Player extends Character {
             + 'Dex: ' + this.dex + '<br>'
             + 'Int: ' + this.intel + '<br>'
             + 'Vit: ' + this.vit + '<br>'
+            + 'Crit: ' + this.crit + '<br>'
+            + 'Block: ' + this.block + '<br>'
+            + 'Dodge: ' + this.dodge + '<br>'
+            + 'Fire: ' + this.resistFire + '<br>'
+            + 'Ice: ' + this.resistIce + '<br>'
+            + 'Light: ' + this.resistLightning + '<br>'
             + '</p>';
 
     var container = document.getElementById('left');
@@ -113,9 +148,8 @@ class Player extends Character {
    * Calculate HP based on vit and str.
    */
   calculateHp() {
-    var newHp = this.level * 100;
-    newHp += this.vit * 4;
-    newHp += this.str * 2;
+    var newHp = this.level * 30;
+    newHp += this.vit * 20;
     return newHp;
   }
 
@@ -125,7 +159,7 @@ class Player extends Character {
   calculateMana() {
     var newMana = this.level * 20;
     newMana += this.vit;
-    newMana += this.intel * 4;
+    newMana += this.intel * 10;
     return newMana;
   }
 

@@ -156,7 +156,6 @@ var Character = (function () {
         var crit = 0;
         var userCrit = this.crit + Math.floor(this.dex / 4);
         var critChance = Math.floor((Math.random() * 100) + 1);
-        console.log(this.name + ' crit chance = ' + userCrit);
         var critChance = critChance - (target.getDefense() / 4);
         if (critChance <= userCrit) {
             crit = 1;
@@ -180,7 +179,6 @@ var Character = (function () {
         if (dodgeChance > 75) {
             dodgeChance = 75;
         }
-        console.log(this.name + ' chance to be dodged = ' + dodgeChance);
         if (dodgeRange <= dodgeChance) {
             dodge = 1;
         }
@@ -195,7 +193,6 @@ var Character = (function () {
         if (blockChance > 75) {
             blockChance = 75;
         }
-        console.log(this.name + ' chance to be blocked = ' + blockChance);
         if (blockRange <= blockChance) {
             block = 1;
         }

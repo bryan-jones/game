@@ -225,8 +225,6 @@ abstract class Character {
 
     // Add in crit chance.
     var critChance = Math.floor((Math.random() * 100) + 1);
-    
-    console.log(this.name + ' crit chance = ' + userCrit);
 
     // Add natural armor reduction.
     var critChance = critChance - (target.getDefense() / 4);
@@ -281,7 +279,6 @@ abstract class Character {
     if (dodgeChance > 75) {
       dodgeChance = 75;
     }
-    console.log(this.name + ' chance to be dodged = ' + dodgeChance);
 
     if (dodgeRange <= dodgeChance) {
        // The attack was dodged!
@@ -312,8 +309,6 @@ abstract class Character {
     if (blockChance > 75) {
       blockChance = 75;
     }
-
-    console.log(this.name + ' chance to be blocked = ' + blockChance);
 
     if (blockRange <= blockChance) {
       block = 1;

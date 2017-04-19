@@ -13,7 +13,7 @@ var Player = (function (_super) {
     function Player(name) {
         var _this = _super.call(this, name) || this;
         _this.exp = 0;
-        _this.maxExp = 1000;
+        _this.maxExp = 200;
         return _this;
     }
     Player.prototype.getExp = function () { return this.exp; };
@@ -70,6 +70,23 @@ var Player = (function (_super) {
             this.armor = item;
         }
     };
+    Player.prototype.levelUp = function () {
+        if (this.exp > this.maxExp) {
+            this.level += 1;
+            var extraExp = this.exp - this.maxExp;
+            this.exp = extraExp;
+            var newLevel = this.level - 1;
+            this.str = 10 + newLevel * 2;
+            this.dex = 10 + newLevel * 2;
+            this.intel = 10 + newLevel * 2;
+            this.vit = 10 + newLevel * 2;
+            this.maxHp = this.calculateHp();
+            this.hp = this.maxHp;
+            this.maxMana = this.calculateMana();
+            this.mana = this.maxMana;
+            this.readjustStats();
+        }
+    };
     Player.prototype.render = function () {
         var output = '<img src="' + this.image + '"/>'
             + '<p>Name: ' + this.name + '<br>'
@@ -79,20 +96,25 @@ var Player = (function (_super) {
             + 'Dex: ' + this.dex + '<br>'
             + 'Int: ' + this.intel + '<br>'
             + 'Vit: ' + this.vit + '<br>'
+            + 'Crit: ' + this.crit + '<br>'
+            + 'Block: ' + this.block + '<br>'
+            + 'Dodge: ' + this.dodge + '<br>'
+            + 'Fire: ' + this.resistFire + '<br>'
+            + 'Ice: ' + this.resistIce + '<br>'
+            + 'Light: ' + this.resistLightning + '<br>'
             + '</p>';
         var container = document.getElementById('left');
         container.innerHTML = output;
     };
     Player.prototype.calculateHp = function () {
-        var newHp = this.level * 100;
-        newHp += this.vit * 4;
-        newHp += this.str * 2;
+        var newHp = this.level * 30;
+        newHp += this.vit * 20;
         return newHp;
     };
     Player.prototype.calculateMana = function () {
         var newMana = this.level * 20;
         newMana += this.vit;
-        newMana += this.intel * 4;
+        newMana += this.intel * 10;
         return newMana;
     };
     Player.prototype.calcDamage = function () {
