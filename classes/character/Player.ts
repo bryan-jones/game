@@ -19,6 +19,7 @@ class Player extends Character {
   protected resistFireUp: number;
   protected resistIceUp: number;
   protected resistLightningUp: number;
+  protected lifestealUp: number;
   weapon: Weapon;
   armor: Armor;
 
@@ -221,5 +222,11 @@ class Player extends Character {
     this.resistIceUp += this.armor.getResistIce();
     this.resistLightningUp = this.resistLightning;
     this.resistLightningUp += this.armor.getResistLightning();
+
+    // Lifesteal.
+    this.lifestealUp = this.lifesteal;
+    this.lifestealUp += this.weapon.getLifeSteal();
+    
+    
   }
 };

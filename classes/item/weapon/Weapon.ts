@@ -12,6 +12,7 @@ class Weapon extends Item {
   protected block: number;
   protected dodge: number;
   protected crit: number;
+  protected lifesteal: number;
 
   /**
    * Constructor.
@@ -35,6 +36,7 @@ class Weapon extends Item {
   getBlock() { return this.block }
   getDodge() { return this.dodge }
   getCrit() { return this.crit }
+  getLifeSteal() { return this.lifesteal }
 
   // Declare setters.
   setName(name: string) { this.name = name }
@@ -47,4 +49,5 @@ class Weapon extends Item {
   setBlock(block: number) { this.block = block }
   setDodge(dodge: number) { this.dodge = dodge }
   setCrit(crit: number) { this.crit = crit }
+  setLifeSteal(lifesteal: number) { this.lifesteal = lifesteal }
 };

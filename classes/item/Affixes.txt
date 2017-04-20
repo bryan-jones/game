@@ -1,0 +1,40 @@
+Magic item affixes
+
+
+Weapons
+
+Prefixes
+    Blood Lord's - Life steal (1-5hp per hit)
+    Brute's - Armor reduction
+    Villain's - 
+    Outlaws 
+    
+
+
+Suffixes
+    of Fire
+    of Ice
+    of Lightning
+    of Experience? (exp per kill)
+    of the Beast (+str,+vit)
+    of the Rascal (+crit chance)
+    of the Arts (+int)
+    of the Miscreant (+dodge)
+
+
+
+
+Armor
+Prefixes
+    Lord's - Strength (1-3)
+
+Suffixes
+
+
+
+
+
+
+Shields
+Suffixes
+    of Blocking - increases block chance (1-5)
