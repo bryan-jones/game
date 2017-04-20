@@ -20,6 +20,7 @@ abstract class Character {
   protected resistLightning: number;
   protected crit: number;
   protected image: string;
+  protected lifesteal: number;
 
   /**
    * Constructor.
@@ -45,6 +46,7 @@ abstract class Character {
     this.resistLightning = 0;
     this.crit = 0;
     this.image = '';
+    this.lifesteal = 0;
   }
 
   // Declare getters.
@@ -81,6 +83,9 @@ abstract class Character {
       mana = 0;
     }
     return mana;
+  }
+  getLifeSteal() {
+    return this.lifesteal;
   }
 
   // Declare setters.
@@ -131,6 +136,7 @@ abstract class Character {
   setResistIce(resistIce: number) { this.resistIce = resistIce }
   setResistLightning(resistLightning: number) { this.resistLightning = resistLightning }
   setImage(image: string) { this.image = image }
+  setLifeSteal(lifesteal: number) { this.lifesteal = lifesteal }
 
   /**
    * Attack functon that calculates damage done.
@@ -314,5 +320,9 @@ abstract class Character {
       block = 1;
     }
     return block;
+  }
+
+  calcLifeSteal(target: Character) {
+
   }
 };
