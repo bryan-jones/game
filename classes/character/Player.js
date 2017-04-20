@@ -18,6 +18,27 @@ var Player = (function (_super) {
     }
     Player.prototype.getExp = function () { return this.exp; };
     Player.prototype.getMaxExp = function () { return this.maxExp; };
+    Player.prototype.getExpPercent = function () {
+        var exp = this.exp / this.maxExp;
+        exp = Math.floor(exp * 100);
+        if (exp < 0) {
+            exp = 0;
+        }
+        return exp;
+    };
+    Player.prototype.getMaxHp = function () { return this.maxHpUp; };
+    Player.prototype.getMaxMana = function () { return this.maxManaUp; };
+    Player.prototype.getStr = function () { return this.strUp; };
+    Player.prototype.getDex = function () { return this.dexUp; };
+    Player.prototype.getIntel = function () { return this.intelUp; };
+    Player.prototype.getVit = function () { return this.vitUp; };
+    Player.prototype.getDefense = function () { return this.defenseUp; };
+    Player.prototype.getBlock = function () { return this.blockUp; };
+    Player.prototype.getDodge = function () { return this.dodgeUp; };
+    Player.prototype.getResistFire = function () { return this.resistFireUp; };
+    Player.prototype.getResistIce = function () { return this.resistIceUp; };
+    Player.prototype.getResistLightning = function () { return this.resistLightningUp; };
+    Player.prototype.getCrit = function () { return this.critUp; };
     Player.prototype.setStats = function (level, str, dex, intel, vit, defense, block, crit, resistFire, resistIce, resistLightning) {
         if (level === void 0) { level = 1; }
         if (str === void 0) { str = 10; }
@@ -50,71 +71,57 @@ var Player = (function (_super) {
     Player.prototype.setMaxExp = function (maxExp) { this.maxExp = maxExp; };
     Player.prototype.setArmor = function (armor) { this.armor = armor; };
     Player.prototype.setWeapon = function (weapon) { this.weapon = weapon; };
-    Player.prototype.getExpPercent = function () {
-        var exp = this.exp / this.maxExp;
-        exp = Math.floor(exp * 100);
-        if (exp < 0) {
-            exp = 0;
-        }
-        return exp;
-    };
     Player.prototype.equipWeapon = function (item) {
-        if (item.getType() == 'weapon') {
-            this.weapon = item;
-        }
-        else {
-        }
+        this.weapon = item;
+        this.readjustStats();
     };
     Player.prototype.equipArmor = function (item) {
-        if (item.getType() == 'armor') {
-            this.armor = item;
-        }
-    };
-    Player.prototype.levelUp = function () {
-        if (this.exp > this.maxExp) {
-            this.level += 1;
-            var extraExp = this.exp - this.maxExp;
-            this.exp = extraExp;
-            var newLevel = this.level - 1;
-            this.str = 10 + newLevel * 2;
-            this.dex = 10 + newLevel * 2;
-            this.intel = 10 + newLevel * 2;
-            this.vit = 10 + newLevel * 2;
-            this.maxHp = this.calculateHp();
-            this.hp = this.maxHp;
-            this.maxMana = this.calculateMana();
-            this.mana = this.maxMana;
-            this.readjustStats();
-        }
+        this.armor = item;
+        this.readjustStats();
     };
     Player.prototype.render = function () {
         var output = '<img src="' + this.image + '"/>'
-            + '<p>Name: ' + this.name + '<br>'
-            + 'HP: ' + this.hp + ' / ' + this.maxHp + '<br>'
-            + 'Mana: ' + this.mana + ' / ' + this.maxMana + '<br>'
-            + 'Str: ' + this.str + '<br>'
-            + 'Dex: ' + this.dex + '<br>'
-            + 'Int: ' + this.intel + '<br>'
-            + 'Vit: ' + this.vit + '<br>'
-            + 'Crit: ' + this.crit + '<br>'
-            + 'Block: ' + this.block + '<br>'
-            + 'Dodge: ' + this.dodge + '<br>'
-            + 'Fire: ' + this.resistFire + '<br>'
-            + 'Ice: ' + this.resistIce + '<br>'
-            + 'Light: ' + this.resistLightning + '<br>'
+            + '<p>Name: ' + this.getName() + '<br>'
+            + 'HP: ' + this.getHp() + ' / ' + this.getMaxHp() + '<br>'
+            + 'Mana: ' + this.getMana() + ' / ' + this.getMaxMana() + '<br>'
+            + 'Str: ' + this.getStr() + '<br>'
+            + 'Dex: ' + this.getDex() + '<br>'
+            + 'Int: ' + this.getIntel() + '<br>'
+            + 'Vit: ' + this.getVit() + '<br>'
+            + 'Crit: ' + this.getCrit() + '<br>'
+            + 'Block: ' + this.getBlock() + '<br>'
+            + 'Dodge: ' + this.getDodge() + '<br>'
+            + 'Fire: ' + this.getResistFire() + '<br>'
+            + 'Ice: ' + this.getResistIce() + '<br>'
+            + 'Light: ' + this.getResistLightning() + '<br>'
             + '</p>';
         var container = document.getElementById('left');
         container.innerHTML = output;
     };
     Player.prototype.calculateHp = function () {
         var newHp = this.level * 30;
-        newHp += this.vit * 20;
+        if (this.vitUp) {
+            newHp += this.vitUp * 20;
+        }
+        else {
+            newHp += this.vit * 20;
+        }
         return newHp;
     };
     Player.prototype.calculateMana = function () {
         var newMana = this.level * 20;
-        newMana += this.vit;
-        newMana += this.intel * 10;
+        if (this.intelUp) {
+            newMana += this.intelUp * 10;
+        }
+        else {
+            newMana += this.intel;
+        }
+        if (this.vitUp) {
+            newMana += this.vitUp * 2;
+        }
+        else {
+            newMana += this.vit * 2;
+        }
         return newMana;
     };
     Player.prototype.calcDamage = function () {
@@ -127,32 +134,48 @@ var Player = (function (_super) {
     };
     Player.prototype.readjustStats = function () {
         this.strUp = this.str;
-        this.strUp += this.weapon.getStr();
-        this.strUp += this.armor.getStr();
         this.dexUp = this.dex;
-        this.dexUp += this.weapon.getDex();
-        this.dexUp += this.armor.getDex();
         this.intelUp = this.intel;
-        this.intelUp += this.weapon.getIntel();
-        this.intelUp += this.armor.getIntel();
         this.vitUp = this.vit;
-        this.vitUp += this.weapon.getVit();
-        this.vitUp += this.armor.getVit();
+        this.defenseUp = this.defense;
         this.blockUp = this.block;
-        this.blockUp += this.weapon.getBlock();
-        this.blockUp += this.armor.getBlock();
         this.dodgeUp = this.dodge;
-        this.dodgeUp += this.weapon.getDodge();
-        this.dodgeUp += this.armor.getDodge();
         this.critUp = this.crit;
-        this.critUp += this.weapon.getCrit();
-        this.critUp += this.armor.getCrit();
+        this.lifestealUp = this.lifesteal;
         this.resistFireUp = this.resistFire;
-        this.resistFireUp += this.armor.getResistFire();
         this.resistIceUp = this.resistIce;
-        this.resistIceUp += this.armor.getResistIce();
         this.resistLightningUp = this.resistLightning;
-        this.resistLightningUp += this.armor.getResistLightning();
+        if (typeof (this.weapon) !== 'undefined') {
+            this.strUp += this.weapon.getStr();
+            this.dexUp += this.weapon.getDex();
+            this.intelUp += this.weapon.getIntel();
+            this.vitUp += this.weapon.getVit();
+            this.blockUp += this.weapon.getBlock();
+            this.dodgeUp += this.weapon.getDodge();
+            this.critUp += this.weapon.getCrit();
+            this.lifestealUp += this.weapon.getLifeSteal();
+            this.resistFireUp += this.weapon.getResistFire();
+            this.resistIceUp += this.weapon.getResistIce();
+            this.resistLightningUp += this.weapon.getResistLightning();
+        }
+        if (typeof (this.armor) !== 'undefined') {
+            this.defenseUp += this.armor.getDefense();
+            this.strUp += this.armor.getStr();
+            this.dexUp += this.armor.getDex();
+            this.intelUp += this.armor.getIntel();
+            this.vitUp += this.armor.getVit();
+            this.blockUp += this.armor.getBlock();
+            this.dodgeUp += this.armor.getDodge();
+            this.critUp += this.armor.getCrit();
+            this.lifestealUp += this.weapon.getLifeSteal();
+            this.resistFireUp += this.armor.getResistFire();
+            this.resistIceUp += this.armor.getResistIce();
+            this.resistLightningUp += this.armor.getResistLightning();
+        }
+        this.maxHpUp = this.calculateHp();
+        this.maxManaUp = this.calculateMana();
+        this.hp = this.maxHpUp;
+        this.mana = this.maxManaUp;
     };
     return Player;
 }(Character));

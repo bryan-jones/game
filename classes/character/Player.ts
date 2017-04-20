@@ -32,6 +32,27 @@ class Player extends Character {
   // Declare getters.
   getExp() { return this.exp }
   getMaxExp() { return this.maxExp }
+  getExpPercent() {
+    var exp = this.exp / this.maxExp;
+    exp = Math.floor(exp * 100);
+    if (exp < 0) {
+      exp = 0;
+    }
+    return exp;
+  }
+  getMaxHp() { return this.maxHpUp }
+  getMaxMana() { return this.maxManaUp }
+  getStr() { return this.strUp }
+  getDex() { return this.dexUp }
+  getIntel() { return this.intelUp }
+  getVit() { return this.vitUp }
+  getDefense() { return this.defenseUp }
+  getBlock() { return this.blockUp }
+  getDodge() { return this.dodgeUp }
+  getResistFire() { return this.resistFireUp }
+  getResistIce() { return this.resistIceUp }
+  getResistLightning() { return this.resistLightningUp }
+  getCrit() { return this.critUp }
 
   // Declare setters.
   setStats( level: number = 1,
@@ -65,60 +86,21 @@ class Player extends Character {
   setMaxExp(maxExp: number) { this.maxExp = maxExp }
   setArmor(armor: Armor) { this.armor = armor }
   setWeapon(weapon: Weapon) { this.weapon = weapon }
-  getExpPercent() {
-    var exp = this.exp / this.maxExp;
-    exp = Math.floor(exp * 100);
-    if (exp < 0) {
-      exp = 0;
-    }
-    return exp;
+
+  /** 
+   * Equip an weapon.
+   */
+  equipWeapon(item: Weapon) {
+    this.weapon = item;
+    this.readjustStats();
   }
 
   /** 
-   * Equip an item.
+   * Equip armor.
    */
-  equipWeapon(item: Weapon) {
-    // Determine the item type.
-    if (item.getType() == 'weapon') {
-      this.weapon = item;
-    } else {
-      // Display text saying item can not be equipped.
-    }
-  }
-
   equipArmor(item: Armor) {
-    if (item.getType() == 'armor') {
-      this.armor = item;
-    }
-  }
-
-  /**
-   * Update base stats by level.
-   */
-  levelUp() {
-    if (this.exp > this.maxExp) {
-      // Add a level and reset exp.
-      this.level += 1;
-      var extraExp = this.exp - this.maxExp;
-      //this.maxExp += 1000;
-      this.exp = extraExp;
-
-      // Update base stats.
-      var newLevel = this.level - 1;
-      this.str = 10 + newLevel * 2;
-      this.dex = 10 + newLevel * 2;
-      this.intel = 10 + newLevel * 2;
-      this.vit = 10 + newLevel * 2;
-
-      // Update health and mana.
-      this.maxHp = this.calculateHp();
-      this.hp = this.maxHp;
-      this.maxMana = this.calculateMana();
-      this.mana = this.maxMana;
-
-      // Readjust all stats.
-      this.readjustStats();
-    }
+    this.armor = item;
+    this.readjustStats();
   }
 
   /**
@@ -126,19 +108,19 @@ class Player extends Character {
    */
   render() {
     var output = '<img src="' + this.image + '"/>'
-            + '<p>Name: ' + this.name + '<br>'
-            + 'HP: ' + this.hp + ' / ' + this.maxHp + '<br>'
-            + 'Mana: ' + this.mana + ' / ' + this.maxMana + '<br>'
-            + 'Str: ' + this.str + '<br>'
-            + 'Dex: ' + this.dex + '<br>'
-            + 'Int: ' + this.intel + '<br>'
-            + 'Vit: ' + this.vit + '<br>'
-            + 'Crit: ' + this.crit + '<br>'
-            + 'Block: ' + this.block + '<br>'
-            + 'Dodge: ' + this.dodge + '<br>'
-            + 'Fire: ' + this.resistFire + '<br>'
-            + 'Ice: ' + this.resistIce + '<br>'
-            + 'Light: ' + this.resistLightning + '<br>'
+            + '<p>Name: ' + this.getName() + '<br>'
+            + 'HP: ' + this.getHp() + ' / ' + this.getMaxHp() + '<br>'
+            + 'Mana: ' + this.getMana() + ' / ' + this.getMaxMana() + '<br>'
+            + 'Str: ' + this.getStr() + '<br>'
+            + 'Dex: ' + this.getDex() + '<br>'
+            + 'Int: ' + this.getIntel() + '<br>'
+            + 'Vit: ' + this.getVit() + '<br>'
+            + 'Crit: ' + this.getCrit() + '<br>'
+            + 'Block: ' + this.getBlock() + '<br>'
+            + 'Dodge: ' + this.getDodge() + '<br>'
+            + 'Fire: ' + this.getResistFire() + '<br>'
+            + 'Ice: ' + this.getResistIce() + '<br>'
+            + 'Light: ' + this.getResistLightning() + '<br>'
             + '</p>';
 
     var container = document.getElementById('left');
@@ -150,7 +132,11 @@ class Player extends Character {
    */
   calculateHp() {
     var newHp = this.level * 30;
-    newHp += this.vit * 20;
+    if (this.vitUp) {
+      newHp += this.vitUp * 20;
+    } else {
+      newHp += this.vit * 20;
+    }
     return newHp;
   }
 
@@ -159,8 +145,19 @@ class Player extends Character {
    */
   calculateMana() {
     var newMana = this.level * 20;
-    newMana += this.vit;
-    newMana += this.intel * 10;
+    if (this.intelUp) {
+      newMana += this.intelUp * 10;
+    
+    } else {
+      newMana += this.intel;
+    }
+
+    if (this.vitUp) {
+      newMana += this.vitUp * 2;
+    } else {
+      newMana += this.vit * 2;
+    }
+    
     return newMana;
   }
 
@@ -180,53 +177,54 @@ class Player extends Character {
    * Readjust all stats.
    */
   readjustStats() {
-    // Strength.
     this.strUp = this.str;
-    this.strUp += this.weapon.getStr();
-    this.strUp += this.armor.getStr();
-
-    // Dexterity.
     this.dexUp = this.dex;
-    this.dexUp += this.weapon.getDex();
-    this.dexUp += this.armor.getDex();
-
-    // Intelligence.
     this.intelUp = this.intel;
-    this.intelUp += this.weapon.getIntel();
-    this.intelUp += this.armor.getIntel();
-
-    // Vitility.
     this.vitUp = this.vit;
-    this.vitUp += this.weapon.getVit();
-    this.vitUp += this.armor.getVit();
-
-    // Block.
+    this.defenseUp = this.defense;
     this.blockUp = this.block;
-    this.blockUp += this.weapon.getBlock();
-    this.blockUp += this.armor.getBlock();
-
-    // Dodge.
     this.dodgeUp = this.dodge;
-    this.dodgeUp += this.weapon.getDodge();
-    this.dodgeUp += this.armor.getDodge();
-
-    // Crit.
     this.critUp = this.crit;
-    this.critUp += this.weapon.getCrit();
-    this.critUp += this.armor.getCrit();
-
-    // Resistances.
-    this.resistFireUp = this.resistFire;
-    this.resistFireUp += this.armor.getResistFire();
-    this.resistIceUp = this.resistIce;
-    this.resistIceUp += this.armor.getResistIce();
-    this.resistLightningUp = this.resistLightning;
-    this.resistLightningUp += this.armor.getResistLightning();
-
-    // Lifesteal.
     this.lifestealUp = this.lifesteal;
-    this.lifestealUp += this.weapon.getLifeSteal();
+    this.resistFireUp = this.resistFire;
+    this.resistIceUp = this.resistIce;
+    this.resistLightningUp = this.resistLightning;
+
+    // Adjust for weapon enhancements.
+    if (typeof(this.weapon) !== 'undefined') {
+      this.strUp += this.weapon.getStr();
+      this.dexUp += this.weapon.getDex();
+      this.intelUp += this.weapon.getIntel();
+      this.vitUp += this.weapon.getVit();
+      this.blockUp += this.weapon.getBlock();
+      this.dodgeUp += this.weapon.getDodge();
+      this.critUp += this.weapon.getCrit();
+      this.lifestealUp += this.weapon.getLifeSteal();
+      this.resistFireUp += this.weapon.getResistFire();
+      this.resistIceUp += this.weapon.getResistIce();
+      this.resistLightningUp += this.weapon.getResistLightning();
+    }
+
+    // Adjust for armor enhancements.
+    if (typeof(this.armor) !== 'undefined') {
+      this.defenseUp += this.armor.getDefense();
+      this.strUp += this.armor.getStr();
+      this.dexUp += this.armor.getDex();
+      this.intelUp += this.armor.getIntel();
+      this.vitUp += this.armor.getVit();
+      this.blockUp += this.armor.getBlock(); 
+      this.dodgeUp += this.armor.getDodge();
+      this.critUp += this.armor.getCrit();
+      this.lifestealUp += this.weapon.getLifeSteal();
+      this.resistFireUp += this.armor.getResistFire();
+      this.resistIceUp += this.armor.getResistIce();
+      this.resistLightningUp += this.armor.getResistLightning();
+    }
     
-    
+    // HP and Mana
+    this.maxHpUp = this.calculateHp();
+    this.maxManaUp = this.calculateMana();
+    this.hp = this.maxHpUp;
+    this.mana = this.maxManaUp;
   }
 };

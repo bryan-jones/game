@@ -1,5 +1,5 @@
 var Item = (function () {
-    function Item(name) {
+    function Item() {
         this.name = '';
         this.type = '';
         this.image = '';

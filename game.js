@@ -3,12 +3,10 @@ $( document ).ready(function() {
   initUI();
 
   // Create the player.
-  var player = new Berserker('Bartuc');
+  var player = new Champion('Bartuc');
   player.setImage('./classes/character/player.jpg');
-  player.render();
   $('#user-name').text(player.getName());
-  updateStats(player);
-
+console.log('Player HP ' + player.getHp());
   // Create a club and equip it on the player.
   var club = new Club();
   player.equipWeapon(club);
@@ -16,6 +14,13 @@ $( document ).ready(function() {
   // Create some cloth armor and equip it.
   var cloth = new Cloth();
   player.equipArmor(cloth);
+console.log('Player HP ' + player.getHp());
+  // Render the player.
+  player.render();
+  console.log('Player HP ' + player.getHp());
+  updateStats(player);
+
+  console.log('Player HP ' + player.getHp());
 
   enemies = [];
 

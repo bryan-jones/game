@@ -18,6 +18,7 @@ var Character = (function () {
         this.resistLightning = 0;
         this.crit = 0;
         this.image = '';
+        this.lifesteal = 0;
     }
     Character.prototype.getName = function () { return this.name; };
     Character.prototype.getLevel = function () { return this.level; };
@@ -52,6 +53,9 @@ var Character = (function () {
             mana = 0;
         }
         return mana;
+    };
+    Character.prototype.getLifeSteal = function () {
+        return this.lifesteal;
     };
     Character.prototype.setStats = function (level, hp, mana, str, dex, intel, vit, defense, block, crit, resistFire, resistIce, resistLightning) {
         if (level === void 0) { level = 1; }
@@ -101,6 +105,7 @@ var Character = (function () {
     Character.prototype.setResistIce = function (resistIce) { this.resistIce = resistIce; };
     Character.prototype.setResistLightning = function (resistLightning) { this.resistLightning = resistLightning; };
     Character.prototype.setImage = function (image) { this.image = image; };
+    Character.prototype.setLifeSteal = function (lifesteal) { this.lifesteal = lifesteal; };
     Character.prototype.attack = function (target) {
         var dead = 0;
         var block = this.calcBlock(target);
@@ -108,15 +113,19 @@ var Character = (function () {
         if (!dodge && !block) {
             var crit = ' hit ';
             var damage = this.calcDamage();
+            console.log('1 - ' + damage);
             var random = Math.floor((Math.random() * (this.str * 2)) - this.str);
             random = Math.floor(random * 0.15);
             damage += random;
+            console.log('2 - ' + damage);
             damage = this.calcDef(damage, target);
+            console.log('3 - ' + damage);
             var critHit = this.calcCrit(target);
             if (critHit) {
                 crit = '<span class="crit"> CRITICALLY HIT </span>';
                 damage *= 2;
             }
+            console.log('4 - ' + damage);
             var targetHp = target.getHp();
             targetHp -= damage;
             if (targetHp <= 0) {
@@ -197,6 +206,8 @@ var Character = (function () {
             block = 1;
         }
         return block;
+    };
+    Character.prototype.calcLifeSteal = function (target) {
     };
     return Character;
 }());

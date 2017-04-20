@@ -148,7 +148,6 @@ abstract class Character {
     // was the attack blocked?
     var block = this.calcBlock(target);
 
-
     // Was the attack dodged?
     var dodge = this.calcDodge(target);
 
@@ -159,13 +158,19 @@ abstract class Character {
       // Calculate base damage.
       var damage = this.calcDamage();
 
+      console.log('1 - ' + damage);
+
       // Add a randomizer value.
       var random = Math.floor((Math.random() * (this.str * 2)) - this.str);
       random = Math.floor(random * 0.15);
       damage += random;
 
+console.log('2 - ' + damage);
+
       // Adjust for defense.
       damage = this.calcDef(damage, target);
+
+console.log('3 - ' + damage);
 
       // Check for a critical hit.
       var critHit = this.calcCrit(target);
@@ -173,6 +178,8 @@ abstract class Character {
         crit = '<span class="crit"> CRITICALLY HIT </span>';
         damage *= 2;
       }
+
+console.log('4 - ' + damage);
 
       // Now lets apply the damage to the target.
       var targetHp = target.getHp();
@@ -211,6 +218,9 @@ abstract class Character {
     return dead;
   }
 
+  /**
+   * Calculate the character's base damage.
+   */
   calcDamage() {
     var damage = 0;
     damage = this.str;

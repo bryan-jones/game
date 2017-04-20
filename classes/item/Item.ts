@@ -9,7 +9,7 @@ class Item {
   /**
    * Constructor.
    */
-  constructor(name: string) {
+  constructor() {
     this.name = '';
     this.type = '';
     this.image = '';
