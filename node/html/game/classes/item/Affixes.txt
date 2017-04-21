@@ -1,0 +1,105 @@
+Magic item affixes
+
+
+Weapons
+Prefixes
+    Blood Lord's - Life steal (1-5hp per hit)
+    Brute's - Armor reduction
+    Villain's - 
+    Outlaws 
+    Swift - Adds dodge (1 - 3)
+    Evasive - Adds dodge (4 - 6)
+    Blurred - Adds dodge (7 - 10)
+    Stubborn - Adds block (1 - 4)
+    Hardy - Adds block (5 - 10)
+    Impenetrable - Adds block (11 - 15)
+    Rusty - Adds crit (1 - 3)
+    Hacking - Adds crit (4 - 6)
+    Deadly - Adds crit (7 - 10)
+    Improved - Adds damage (1 - 2)
+    Masterful - Adds damage (3 - 4)
+    Pefect - Adds damage (5 - 6)
+
+Suffixes
+    of Fire
+    of Ice
+    of Lightning
+    of Experience? (exp per kill)
+    of the Beast (+str,+vit)
+    of the Rascal (+crit chance)
+    of the Arts (+int)
+    of the Miscreant (+dodge)
+    of the Bat - Adds leech (1 - 5)
+    of the Leech - Adds leech (6 - 10)
+    of Vampires - Adds leech (11 - 15)
+    of Quickness - Reduces attack speed (100 - 200)
+    of Speed - Reduces attack speed (200 - 300)
+    of Haste - Reduces attack speed (300 - 400)
+
+
+
+Armor
+Prefixes
+    Peseants - Strength (1 - 3)
+    Warriors - Strength (4 - 6)
+    Knights - Strength (7 - 10)
+    Burglars - Dexterity (1 - 3)
+    Bandits - Dexterity (4 - 6)
+    Cunning - Dexterity (7 - 10)
+    Acolytes - Intelligence (1 - 3)
+    Apprentices - Intelligence (4 - 6)
+    Masters - Intelligence (7 - 10)   
+    Crazy - Adds Crit (1 - 2)
+    Insane - Adds Crit (3 - 4)
+    Psycho - Adds Crit (5 - 6)
+    Sturdy - Defense (1 - 2)
+    Bulky - Defense (3 - 5)
+    Great - Defense (6 - 10)
+ 
+Suffixes
+    of Heat - Adds Fire Resist (1 - 10)
+    of Magma - Adds Fire Resist (11 - 20)
+    of the Sun - Adds Fire Resist (21 - 30)
+    of Chilling - Adds Ice Resist (1 - 10)
+    of Ice - Adds Ice Resist (11 - 20)
+    of Glaciers - Adds Ice Resist (21 - 30)
+    of Shock - Adds Lightning Resist (1 - 10)
+    of Bolts - Adds Lightning Resist (11 - 20)
+    of the Storms - Adds Lightning Resist (21 - 30)
+    of the Rat - Adds HP (10 - 20)
+    of the Ox - Adds HP (21 - 40)
+    of the Whale - Adds HP (41 - 80)
+    of the Gods - Adds HP (81 - 120)
+    of the Mind - Adds Mana (10 - 20)
+    of Knowledge - Adds Mana (21 - 30)
+    of Wisdom - Adds Mana (31 - 50)
+    of Genius - Adds Mana (51 - 80)
+
+
+
+Shields
+Prefixes
+    Stubborn - Adds block (1 - 4)
+    Hardy - Adds block (5 - 10)
+    Impenetrable - Adds block (11 - 15)
+    Peseants - Strength (1 - 3)
+    Warriors - Strength (4 - 6)
+    Knights - Strength (7 - 10)
+    Burglars - Dexterity (1 - 3)
+    Bandits - Dexterity (4 - 6)
+    Cunning - Dexterity (7 - 10)
+    Acolytes - Intelligence (1 - 3)
+    Apprentices - Intelligence (4 - 6)
+    Masters - Intelligence (7 - 10)
+    
+Suffixes
+    of Blocking - Adds Block (1 - 4)
+    of the Fortress - Adds Block (5 - 10)
+    of the Empire - Adds Block (11 - 15)
+    of Pain - Attacker takes damage (1 -5)
+    of Agony - Attacker takes damage (5 - 10)
+    of Hell - Attacker takes damage (11 - 15)
+    of the Rat - Adds HP (10 - 20)
+    of the Ox - Adds HP (21 - 40)
+    of the Whale - Adds HP (41 - 80)
+    of the Gods - Adds HP (81 - 120)

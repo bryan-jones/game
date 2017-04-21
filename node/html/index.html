@@ -5,19 +5,297 @@
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      form {
+          background: #000;
+          padding: 3px;
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          border-radius: 8px;
+      }
+      form input {
+          border: 0;
+          padding: 10px;
+          width: 90%;
+          margin-right: .5%;
+          border-radius: 7px;
+          background-color: red;
+      }
+      form button {
+        width: 9%;
+        background: rgb(130, 224, 255);
+        border: none;
+        padding: 10px 0;
+        border-radius: 10px;
+        text-align: center;
+    }
       #messages { list-style-type: none; margin: 0; padding: 0; }
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
+      #chat-container {
+        width: 50vw;
+        /* background: red; */
+        height: 25vh;
+        border-radius: 6px;
+        position: fixed;
+        bottom: 4em;
+        left: 1em;
+        max-width: 500px;
+        box-shadow: 0px 0px 25px 6px tan;
+    } 
+
+
+    body {
+  margin: 0 0 75px 0;
+}
+
+ul {
+  margin-top: 0;
+  padding: 0;
+}
+
+#user-bar-wrapper * {
+  -moz-user-select: none;
+  user-select: none;
+}
+
+#user-bar-wrapper {
+  background-color: #ddd;
+  border-bottom: 1px solid #bbb;
+  bottom: 0;
+  height: 50px;
+  position: fixed;
+  width: 100%;
+}
+
+#user-bar {
+  margin: 0;
+  position: relative;
+}
+
+#user-bar div {
+  text-shadow: -1px -1px 0 #aaa, 1px 1px 0 #eee;
+}
+
+#user-bar > div {
+  cursor: pointer;
+  display: block;
+  float: left;
+  padding: 5px 20px;
+  position: relative;
+  width: auto;
+}
+
+#user-bar #level,
+#user-bar #name {
+  font-size: 160%;
+  padding-top: 10px;
+}
+
+.liquid-wrapper {
+  background-color: #777;
+  border: 1px solid #555;
+  border-radius: 10px;
+  display: block;
+  height: 39px;
+  overflow: hidden;
+  position: relative;
+  width: 200px;
+}
+
+.bar {
+  display: absolute;
+  height: inherit;
+  width: 100%;
+}
+
+#health-bar {
+  background-color: #a00;
+}
+
+#mana-bar {
+  background-color: #00a;
+}
+
+#experience-bar {
+  background-color: #0a0;
+  width: 0;
+}
+
+.bar-text {
+  bottom: 9px;
+  color: #fff;
+  position: absolute;
+  text-align: center;
+  text-shadow: none;
+  width: 100%;
+  z-index: 5;
+}
+
+#save {
+  color: #aaa;
+  cursor: default;
+}
+
+#save:hover {
+  background-color: transparent !important;
+}
+
+#new-prompt {
+  background-color: #ddd;
+  border: 1px solid #bbb;
+  box-shadow: 5px 5px 5px 0 #888;
+  height: 80vh;
+  left: 10vw;
+  position: absolute;
+  top: calc(10vh + 20px);
+  width: 80vw;
+  z-index: 10;
+}
+
+#new-prompt h1 {
+  padding-left: 20px;
+}
+
+#new-prompt label {
+  padding-left: 20px;
+  padding-right: 8px;
+  width: 100%;
+}
+
+#new-prompt input {
+  margin-bottom: 10px;
+}
+
+#button {
+  background-color: #a00;
+  border: 1px solid #000;
+  clear: both;
+  color: #fff;
+  cursor: pointer;
+  font-size: 150%;
+  margin: 30px auto 10px;
+  padding: 20px 30px;
+  text-align: center;
+  width: 200px;
+}
+
+.button:hover {
+  background-color: #600;
+}
+
+.dodged {
+  color: #00c;
+}
+
+.crit {
+  color: #c00;
+}
+
+.blocked {
+  color: #d0d;
+}
+
+#text {
+  text-align: center;
+}
+
+#left {
+  float: left;
+  width: 50%;
+}
+
+ #left img {
+   max-height: 30vh;
+   overflow: hidden;
+   width: auto;
+ }
+
+#right {
+  float: left;
+  width: 50%;
+}
+
+#right img {
+   max-height: 30vh;
+   overflow: hidden;
+   width: auto;
+}
     </style>
   </head>
   <body>
-    <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
+    <div id="chat-container">
+      <ul id="messages"></ul>
+      <form action="">
+        <input id="m" autocomplete="off" /><button>Send</button>
+      </form>
+    </div>
+    <div id="bottom-ui">
+      
+    </div>
+
+
+    <div id="user-bar-wrapper">
+      <div id="user-bar" class="menu">
+        <div id="level" class="bar">
+          <span id="user-level">0</span>
+        </div>
+        <div id="name" class="bar">
+          <span id="user-name">Unknown</span>
+        </div>
+        <div id="health" class="liquid-bar">
+          <div class="liquid-wrapper">
+            <div id="health-bar" class="bar"></div>
+            <span id="user-health" class="bar-text">0 / 0</span>
+          </div>
+        </div>
+        <div id="mana" class="liquid-bar">
+          <div class="liquid-wrapper">
+            <div id="mana-bar" class="bar"></div>
+            <span id="user-mana" class="bar-text">0 / 0</span>
+          </div>
+        </div>
+        <div id="experience" class="liquid-bar">
+          <div class="liquid-wrapper">
+            <div id="experience-bar" class="bar"></div>
+            <span id="user-experience" class="bar-text">Exp: 0 / 0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="game/libraries/jquery-3.2.1.min.js"></script>
+
+    <script src="./game/classes/character/Character.js"></script>
+    <script src="./game/classes/character/Enemy.js"></script>
+    <script src="./game/classes/character/enemy/Rat.js"></script>
+    <script src="./game/classes/character/enemy/Bat.js"></script>
+    <script src="./game/classes/character/enemy/Ogre.js"></script>
+    <script src="./game/classes/character/enemy/Dwarf.js"></script>
+    <script src="./game/classes/character/Player.js"></script>
+
+    <script src="./game/classes/character/classes/Knight.js"></script>
+    <script src="./game/classes/character/classes/Berserker.js"></script>
+    <script src="./game/classes/character/classes/Champion.js"></script>
+    <script src="./game/classes/character/classes/Conqueror.js"></script>
+    <script src="./game/classes/character/classes/Warrior.js"></script>
+    <script src="./game/classes/character/classes/Knight.js"></script>
+    <script src="./game/classes/character/classes/Templar.js"></script>
+
+    <script src="./game/classes/item/Item.js"></script>
+    <script src="./game/classes/item/equipment/Equipment.js"></script>
+    <script src="./game/classes/item/equipment/weapon/Weapon.js"></script>
+    <script src="./game/classes/item/equipment/weapon/Club.js"></script>
+    <script src="./game/classes/item/equipment/armor/Armor.js"></script>
+    <script src="./game/classes/item/equipment/armor/Cloth.js"></script>
+    <script src="./game/game.js"></script>
+
+
+
+
+
+
+    
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
@@ -33,5 +311,6 @@
         });
     });
     </script>
+
   </body>
 </html>
