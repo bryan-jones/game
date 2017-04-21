@@ -1,3 +1,5 @@
+///<reference path='../Player.ts'/>
+
 /**
  * Create a champion class.
  */

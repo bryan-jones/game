@@ -1,3 +1,6 @@
+/**
+ * Create a base equipment class.
+ */
 class Equipment extends Item {
   protected str: number;
   protected dex: number;

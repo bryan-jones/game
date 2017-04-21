@@ -1,14 +1,29 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
+    "noImplicitAny": true,
     "removeComments": true,
-    "sourceMap": true,
-    "noImplicitAny": true
+    "sourceMap": true
   },
-  "include": [
-    "classes/**/*"
-  ],
-  "exclude": [
-    "node_modules"
+  "files": [
+    "classes/character/Character.ts",
+    "classes/item/Item.ts",
+    "classes/character/Player.ts",
+    "classes/character/Enemy.ts",
+    "classes/character/classes/Berserker.ts",
+    "classes/character/classes/Champion.ts",
+    "classes/character/classes/Conqueror.ts",
+    "classes/character/classes/Knight.ts",
+    "classes/character/classes/Templar.ts",
+    "classes/character/classes/Warrior.ts",
+    "classes/character/enemy/Rat.ts",
+    "classes/character/enemy/Bat.ts",
+    "classes/character/enemy/Ogre.ts",
+    "classes/character/enemy/Dwarf.ts",
+    "classes/item/equipment/Equipment.ts",
+    "classes/item/equipment/armor/Armor.ts",
+    "classes/item/equipment/armor/Cloth.ts",
+    "classes/item/equipment/weapon/Weapon.ts",
+    "classes/item/equipment/weapon/Club.ts"
   ]
 }
