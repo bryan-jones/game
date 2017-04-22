@@ -18,7 +18,7 @@ Prefixes
     Deadly - Adds crit (7 - 10)
     Improved - Adds damage (1 - 2)
     Masterful - Adds damage (3 - 4)
-    Perfect - Adds damage (5 - 6)
+    Pefect - Adds damage (5 - 6)
 
 Suffixes
     of Fire
@@ -35,6 +35,7 @@ Suffixes
     of Quickness - Reduces attack speed (100 - 200)
     of Speed - Reduces attack speed (200 - 300)
     of Haste - Reduces attack speed (300 - 400)
+
 
 
 Armor
