@@ -221,9 +221,26 @@ ul {
    overflow: hidden;
    width: auto;
 }
+
+#minimap {
+    border: 1px solid black;
+    height: 250px;
+    width: 250px;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+}
+
     </style>
   </head>
   <body>
+
+    <div id="minimap">
+
+    </div>
+
+    <canvas id="ctx" width="500" height="500" style="border: 1px solid black;"></canvas>
+
     <div id="chat-container">
       <ul id="messages"></ul>
       <form action="">
@@ -264,34 +281,6 @@ ul {
       </div>
     </div>
 
-    <script src="game/libraries/jquery-3.2.1.min.js"></script>
-
-    <script src="./game/classes/character/Character.js"></script>
-    <script src="./game/classes/character/Enemy.js"></script>
-    <script src="./game/classes/character/enemy/Rat.js"></script>
-    <script src="./game/classes/character/enemy/Bat.js"></script>
-    <script src="./game/classes/character/enemy/Ogre.js"></script>
-    <script src="./game/classes/character/enemy/Dwarf.js"></script>
-    <script src="./game/classes/character/Player.js"></script>
-
-    <script src="./game/classes/character/classes/Knight.js"></script>
-    <script src="./game/classes/character/classes/Berserker.js"></script>
-    <script src="./game/classes/character/classes/Champion.js"></script>
-    <script src="./game/classes/character/classes/Conqueror.js"></script>
-    <script src="./game/classes/character/classes/Warrior.js"></script>
-    <script src="./game/classes/character/classes/Knight.js"></script>
-    <script src="./game/classes/character/classes/Templar.js"></script>
-
-    <script src="./game/classes/item/Item.js"></script>
-    <script src="./game/classes/item/equipment/Equipment.js"></script>
-    <script src="./game/classes/item/equipment/weapon/Weapon.js"></script>
-    <script src="./game/classes/item/equipment/weapon/Club.js"></script>
-    <script src="./game/classes/item/equipment/armor/Armor.js"></script>
-    <script src="./game/classes/item/equipment/armor/Cloth.js"></script>
-    <script src="./game/game.js"></script>
-
-
-
 
 
 
@@ -301,14 +290,83 @@ ul {
     <script>
     $(function () {
         var socket = io();
+        var ctx = document.getElementById('ctx').getContext('2d');
+        ctx.font = '30px Arial';
+
+        socket.on('newPositions', function(data){
+            ctx.clearRect(0,0,500,500);
+            for (var i =0; i <data.length;i++) {
+                ctx.fillText(data[i].number, data[i].x, data[i].y);
+            }
+            
+        });
+
+        document.onkeydown = function(event){
+            if(event.keyCode === 87){ //w
+                socket.emit('keyPress',{
+                    inputId:'up',
+                    state: true
+                })
+            }
+            if(event.keyCode === 83){ //s
+                socket.emit('keyPress',{
+                    inputId:'down',
+                    state: true
+                })
+            }
+            if(event.keyCode === 65){ //a
+                socket.emit('keyPress',{
+                    inputId:'left',
+                    state: true
+                })
+            }
+            if(event.keyCode === 68){ //d
+                socket.emit('keyPress',{
+                    inputId:'right',
+                    state: true
+                })
+            }
+        }
+
+        document.onkeyup = function(event){
+            if(event.keyCode === 87){ //w
+                socket.emit('keyPress',{
+                    inputId:'up',
+                    state: false
+                })
+            }
+            if(event.keyCode === 83){ //s
+                socket.emit('keyPress',{
+                    inputId:'down',
+                    state: false
+                })
+            }
+            if(event.keyCode === 65){ //a
+                socket.emit('keyPress',{
+                    inputId:'left',
+                    state: false
+                })
+            }
+            if(event.keyCode === 68){ //d
+                socket.emit('keyPress',{
+                    inputId:'right',
+                    state: false
+                })
+            }
+        }
+
+
+        // Client chat.
         $('form').submit(function(){
-        socket.emit('chat message', $('#m').val());
-        $('#m').val('');
-        return false;
+            socket.emit('chat message', $('#m').val());
+            $('#m').val('');
+            return false;
         });
+
         socket.on('chat message', function(msg){
-        $('#messages').append($('<li>').text(msg));
+            $('#messages').append($('<li>').text(msg));
         });
+
     });
     </script>
 
