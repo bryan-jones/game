@@ -3,7 +3,7 @@ $( document ).ready(function() {
   initUI();
 
   // Create the player.
-  var player = new Monk('Bryan');
+  var player = new LightMage('Bryan');
   player.setImage('./classes/character/player.jpg');
   $('#user-name').text(player.getName());
 

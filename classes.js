@@ -1246,6 +1246,412 @@ var Peltast = (function (_super) {
     return Peltast;
 }(Player));
 ;
+var Druid = (function (_super) {
+    __extends(Druid, _super);
+    function Druid(name) {
+        var _this = _super.call(this, name) || this;
+        _this.str = 13;
+        _this.dex = 13;
+        _this.intel = 13;
+        _this.vit = 13;
+        _this.block = 2;
+        _this.crit = 2;
+        _this.dodge = 2;
+        _this.resistFire = 1;
+        _this.resistIce = 1;
+        _this.resistLightning = 1;
+        _this.maxHp = _this.calculateHp();
+        _this.maxMana = _this.calculateMana();
+        _this.hp = _this.maxHp;
+        _this.mana = _this.maxMana;
+        return _this;
+    }
+    Druid.prototype.levelUp = function () {
+        if (this.exp > this.maxExp) {
+            this.level += 1;
+            var extraExp = this.exp - this.maxExp;
+            this.exp = extraExp;
+            var newLevel = this.level - 1;
+            this.intel += 1;
+            this.dex += 1;
+            this.vit += 1;
+            this.str += 1;
+            if (this.level % 4 == 1) {
+                this.vit += 2;
+                this.intel += 2;
+                this.str += 2;
+                this.dex += 2;
+            }
+            else if (this.level % 3 == 1) {
+                this.str += 1;
+                this.intel += 1;
+                this.vit += 1;
+                this.dex += 1;
+            }
+            if (this.level % 6 == 0) {
+                this.resistFire += 1;
+                this.resistIce += 1;
+                this.resistLightning += 1;
+            }
+            if (this.level % 8 == 0) {
+                this.crit += 1;
+                this.dodge += 1;
+                this.block += 1;
+            }
+            this.maxHp = this.calculateHp();
+            this.hp = this.maxHp;
+            this.maxMana = this.calculateMana();
+            this.mana = this.maxMana;
+            this.readjustStats();
+        }
+    };
+    return Druid;
+}(Player));
+;
+var Cleric = (function (_super) {
+    __extends(Cleric, _super);
+    function Cleric(name) {
+        var _this = _super.call(this, name) || this;
+        _this.str = 12;
+        _this.dex = 12;
+        _this.intel = 14;
+        _this.vit = 15;
+        _this.block = 2;
+        _this.crit = 0;
+        _this.dodge = 0;
+        _this.resistFire = 2;
+        _this.resistIce = 4;
+        _this.resistLightning = 2;
+        _this.maxHp = _this.calculateHp();
+        _this.maxMana = _this.calculateMana();
+        _this.hp = _this.maxHp;
+        _this.mana = _this.maxMana;
+        return _this;
+    }
+    Cleric.prototype.levelUp = function () {
+        if (this.exp > this.maxExp) {
+            this.level += 1;
+            var extraExp = this.exp - this.maxExp;
+            this.exp = extraExp;
+            var newLevel = this.level - 1;
+            this.intel += 2;
+            this.dex += 1;
+            this.vit += 2;
+            this.str += 1;
+            if (this.level % 5 == 1) {
+                this.str += 1;
+            }
+            else if (this.level % 4 == 1) {
+                this.str += 2;
+                this.dex += 1;
+                this.vit += 1;
+            }
+            if (this.level % 4 == 0) {
+                this.resistFire += 1;
+                this.resistIce += 1;
+                this.resistLightning += 1;
+            }
+            if (this.level % 6 == 0) {
+                this.resistIce += 1;
+                this.block += 1;
+            }
+            this.maxHp = this.calculateHp();
+            this.hp = this.maxHp;
+            this.maxMana = this.calculateMana();
+            this.mana = this.maxMana;
+            this.readjustStats();
+        }
+    };
+    return Cleric;
+}(Player));
+;
+var Necromancer = (function (_super) {
+    __extends(Necromancer, _super);
+    function Necromancer(name) {
+        var _this = _super.call(this, name) || this;
+        _this.str = 10;
+        _this.dex = 13;
+        _this.intel = 16;
+        _this.vit = 14;
+        _this.block = 0;
+        _this.crit = 0;
+        _this.dodge = 0;
+        _this.resistFire = 3;
+        _this.resistIce = 3;
+        _this.resistLightning = 3;
+        _this.maxHp = _this.calculateHp();
+        _this.maxMana = _this.calculateMana();
+        _this.hp = _this.maxHp;
+        _this.mana = _this.maxMana;
+        return _this;
+    }
+    Necromancer.prototype.levelUp = function () {
+        if (this.exp > this.maxExp) {
+            this.level += 1;
+            var extraExp = this.exp - this.maxExp;
+            this.exp = extraExp;
+            var newLevel = this.level - 1;
+            this.intel += 2;
+            this.dex += 1;
+            this.vit += 2;
+            this.str += 1;
+            if (this.level % 4 == 1) {
+                this.dex += 1;
+            }
+            else if (this.level % 3 == 1) {
+                this.intel += 1;
+                this.dex += 1;
+            }
+            if (this.level % 4 == 0) {
+                this.resistFire += 1;
+                this.resistIce += 1;
+                this.resistLightning += 1;
+            }
+            if (this.level % 6 == 0) {
+                this.crit += 1;
+            }
+            this.maxHp = this.calculateHp();
+            this.hp = this.maxHp;
+            this.maxMana = this.calculateMana();
+            this.mana = this.maxMana;
+            this.readjustStats();
+        }
+    };
+    return Necromancer;
+}(Player));
+;
+var Wizard = (function (_super) {
+    __extends(Wizard, _super);
+    function Wizard(name) {
+        var _this = _super.call(this, name) || this;
+        _this.str = 10;
+        _this.dex = 14;
+        _this.intel = 17;
+        _this.vit = 13;
+        _this.block = 0;
+        _this.crit = 2;
+        _this.dodge = 0;
+        _this.resistFire = 2;
+        _this.resistIce = 0;
+        _this.resistLightning = 5;
+        _this.maxHp = _this.calculateHp();
+        _this.maxMana = _this.calculateMana();
+        _this.hp = _this.maxHp;
+        _this.mana = _this.maxMana;
+        return _this;
+    }
+    Wizard.prototype.levelUp = function () {
+        if (this.exp > this.maxExp) {
+            this.level += 1;
+            var extraExp = this.exp - this.maxExp;
+            this.exp = extraExp;
+            var newLevel = this.level - 1;
+            this.intel += 3;
+            this.dex += 1;
+            this.vit += 1;
+            this.str += 1;
+            if (this.level % 5 == 1) {
+                this.vit += 1;
+            }
+            else if (this.level % 3 == 1) {
+                this.dex += 1;
+            }
+            if (this.level % 4 == 0) {
+                this.resistLightning += 1;
+            }
+            if (this.level % 6 == 0) {
+                this.crit += 1;
+                this.resistFire += 1;
+                this.resistLightning += 1;
+            }
+            this.maxHp = this.calculateHp();
+            this.hp = this.maxHp;
+            this.maxMana = this.calculateMana();
+            this.mana = this.maxMana;
+            this.readjustStats();
+        }
+    };
+    return Wizard;
+}(Player));
+;
+var Sorceror = (function (_super) {
+    __extends(Sorceror, _super);
+    function Sorceror(name) {
+        var _this = _super.call(this, name) || this;
+        _this.str = 11;
+        _this.dex = 12;
+        _this.intel = 16;
+        _this.vit = 14;
+        _this.block = 0;
+        _this.crit = 2;
+        _this.dodge = 1;
+        _this.resistFire = 5;
+        _this.resistIce = 0;
+        _this.resistLightning = 0;
+        _this.maxHp = _this.calculateHp();
+        _this.maxMana = _this.calculateMana();
+        _this.hp = _this.maxHp;
+        _this.mana = _this.maxMana;
+        return _this;
+    }
+    Sorceror.prototype.levelUp = function () {
+        if (this.exp > this.maxExp) {
+            this.level += 1;
+            var extraExp = this.exp - this.maxExp;
+            this.exp = extraExp;
+            var newLevel = this.level - 1;
+            this.intel += 2;
+            this.dex += 1;
+            this.vit += 1;
+            this.str += 1;
+            if (this.level % 4 == 1) {
+                this.dex += 1;
+                this.vit += 1;
+                this.str += 1;
+                this.intel += 1;
+            }
+            else if (this.level % 3 == 1) {
+                this.dex += 1;
+                this.vit += 1;
+            }
+            if (this.level % 4 == 0) {
+                this.resistFire += 1;
+            }
+            if (this.level % 6 == 0) {
+                this.crit += 1;
+                this.resistLightning += 1;
+                this.resistIce += 1;
+            }
+            if (this.level % 8 == 0) {
+                this.resistFire += 1;
+                this.dodge += 1;
+            }
+            this.maxHp = this.calculateHp();
+            this.hp = this.maxHp;
+            this.maxMana = this.calculateMana();
+            this.mana = this.maxMana;
+            this.readjustStats();
+        }
+    };
+    return Sorceror;
+}(Player));
+;
+var Shadowcaster = (function (_super) {
+    __extends(Shadowcaster, _super);
+    function Shadowcaster(name) {
+        var _this = _super.call(this, name) || this;
+        _this.str = 14;
+        _this.dex = 12;
+        _this.intel = 14;
+        _this.vit = 12;
+        _this.block = 0;
+        _this.crit = 1;
+        _this.dodge = 1;
+        _this.resistFire = 3;
+        _this.resistIce = 2;
+        _this.resistLightning = 1;
+        _this.maxHp = _this.calculateHp();
+        _this.maxMana = _this.calculateMana();
+        _this.hp = _this.maxHp;
+        _this.mana = _this.maxMana;
+        return _this;
+    }
+    Shadowcaster.prototype.levelUp = function () {
+        if (this.exp > this.maxExp) {
+            this.level += 1;
+            var extraExp = this.exp - this.maxExp;
+            this.exp = extraExp;
+            var newLevel = this.level - 1;
+            this.intel += 2;
+            this.dex += 1;
+            this.vit += 1;
+            this.str += 2;
+            if (this.level % 4 == 1) {
+            }
+            else if (this.level % 3 == 1) {
+                this.dex += 1;
+                this.vit += 1;
+            }
+            if (this.level % 4 == 0) {
+                this.resistFire += 1;
+            }
+            if (this.level % 6 == 0) {
+                this.crit += 1;
+                this.dodge += 1;
+                this.resistIce += 1;
+            }
+            if (this.level % 8 == 0) {
+                this.resistLightning += 1;
+            }
+            this.maxHp = this.calculateHp();
+            this.hp = this.maxHp;
+            this.maxMana = this.calculateMana();
+            this.mana = this.maxMana;
+            this.readjustStats();
+        }
+    };
+    return Shadowcaster;
+}(Player));
+;
+var LightMage = (function (_super) {
+    __extends(LightMage, _super);
+    function LightMage(name) {
+        var _this = _super.call(this, name) || this;
+        _this.str = 12;
+        _this.dex = 14;
+        _this.intel = 15;
+        _this.vit = 12;
+        _this.block = 1;
+        _this.crit = 1;
+        _this.dodge = 1;
+        _this.resistFire = 1;
+        _this.resistIce = 1;
+        _this.resistLightning = 1;
+        _this.maxHp = _this.calculateHp();
+        _this.maxMana = _this.calculateMana();
+        _this.hp = _this.maxHp;
+        _this.mana = _this.maxMana;
+        return _this;
+    }
+    LightMage.prototype.levelUp = function () {
+        if (this.exp > this.maxExp) {
+            this.level += 1;
+            var extraExp = this.exp - this.maxExp;
+            this.exp = extraExp;
+            var newLevel = this.level - 1;
+            this.intel += 2;
+            this.dex += 1;
+            this.vit += 1;
+            this.str += 1;
+            if (this.level % 4 == 0) {
+                this.dex += 2;
+                this.intel += 1;
+            }
+            else if (this.level % 3 == 0) {
+                this.vit += 1;
+                this.str += 1;
+            }
+            else if (this.level % 2 == 0) {
+                this.dex += 1;
+            }
+            if (this.level % 6 == 0) {
+                this.block += 1;
+                this.crit += 1;
+                this.dodge += 1;
+                this.resistFire += 1;
+                this.resistIce += 1;
+                this.resistLightning += 1;
+            }
+            this.maxHp = this.calculateHp();
+            this.hp = this.maxHp;
+            this.maxMana = this.calculateMana();
+            this.mana = this.maxMana;
+            this.readjustStats();
+        }
+    };
+    return LightMage;
+}(Player));
+;
 var Rat = (function (_super) {
     __extends(Rat, _super);
     function Rat() {
