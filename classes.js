@@ -243,6 +243,20 @@ var Player = (function (_super) {
         var _this = _super.call(this, name) || this;
         _this.exp = 0;
         _this.maxExp = 200;
+        _this.maxHpUp = 0;
+        _this.maxManaUp = 0;
+        _this.strUp = 0;
+        _this.dexUp = 0;
+        _this.intelUp = 0;
+        _this.vitUp = 0;
+        _this.defenseUp = 0;
+        _this.blockUp = 0;
+        _this.dodgeUp = 0;
+        _this.critUp = 0;
+        _this.resistFireUp = 0;
+        _this.resistIceUp = 0;
+        _this.resistLightningUp = 0;
+        _this.lifestealUp = 0;
         return _this;
     }
     Player.prototype.getExp = function () { return this.exp; };
@@ -812,6 +826,426 @@ var Warrior = (function (_super) {
     return Warrior;
 }(Player));
 ;
+var Thief = (function (_super) {
+    __extends(Thief, _super);
+    function Thief(name) {
+        var _this = _super.call(this, name) || this;
+        _this.str = 13;
+        _this.dex = 16;
+        _this.intel = 12;
+        _this.vit = 12;
+        _this.block = 0;
+        _this.crit = 2;
+        _this.dodge = 2;
+        _this.resistFire = 0;
+        _this.resistIce = 0;
+        _this.resistLightning = 0;
+        _this.maxHp = _this.calculateHp();
+        _this.maxMana = _this.calculateMana();
+        _this.hp = _this.maxHp;
+        _this.mana = _this.maxMana;
+        return _this;
+    }
+    Thief.prototype.levelUp = function () {
+        if (this.exp > this.maxExp) {
+            this.level += 1;
+            var extraExp = this.exp - this.maxExp;
+            this.exp = extraExp;
+            var newLevel = this.level - 1;
+            this.intel += 1;
+            this.dex += 2;
+            this.vit += 1;
+            this.str += 1;
+            if (this.level % 4 == 1) {
+                this.dex += 2;
+                this.vit += 2;
+                this.intel += 2;
+            }
+            else if (this.level % 2 == 1) {
+                this.str += 2;
+            }
+            else if (this.level % 2 == 1) {
+                this.dex += 1;
+            }
+            if (this.level % 4 == 0) {
+                this.crit += 1;
+                this.dodge += 1;
+            }
+            if (this.level % 8 == 0) {
+                this.resistFire += 1;
+                this.resistIce += 1;
+                this.resistLightning += 1;
+            }
+            this.maxHp = this.calculateHp();
+            this.hp = this.maxHp;
+            this.maxMana = this.calculateMana();
+            this.mana = this.maxMana;
+            this.readjustStats();
+        }
+    };
+    return Thief;
+}(Player));
+;
+var Monk = (function (_super) {
+    __extends(Monk, _super);
+    function Monk(name) {
+        var _this = _super.call(this, name) || this;
+        _this.str = 13;
+        _this.dex = 15;
+        _this.intel = 14;
+        _this.vit = 12;
+        _this.block = 0;
+        _this.crit = 1;
+        _this.dodge = 4;
+        _this.resistFire = 2;
+        _this.resistIce = 2;
+        _this.resistLightning = 2;
+        _this.maxHp = _this.calculateHp();
+        _this.maxMana = _this.calculateMana();
+        _this.hp = _this.maxHp;
+        _this.mana = _this.maxMana;
+        return _this;
+    }
+    Monk.prototype.levelUp = function () {
+        if (this.exp > this.maxExp) {
+            this.level += 1;
+            var extraExp = this.exp - this.maxExp;
+            this.exp = extraExp;
+            var newLevel = this.level - 1;
+            this.intel += 1;
+            this.dex += 2;
+            this.vit += 1;
+            this.str += 1;
+            if (this.level % 4 == 1) {
+                this.vit += 2;
+                this.intel += 1;
+                this.str += 1;
+            }
+            else if (this.level % 3 == 1) {
+                this.str += 1;
+                this.intel += 1;
+                this.vit += 1;
+            }
+            else if (this.level % 2 == 1) {
+                this.dex += 1;
+            }
+            if (this.level % 3 == 0) {
+                this.dodge += 1;
+            }
+            if (this.level % 5 == 0) {
+                this.resistFire += 1;
+                this.resistIce += 1;
+                this.resistLightning += 1;
+                this.crit += 1;
+            }
+            this.maxHp = this.calculateHp();
+            this.hp = this.maxHp;
+            this.maxMana = this.calculateMana();
+            this.mana = this.maxMana;
+            this.readjustStats();
+        }
+    };
+    return Monk;
+}(Player));
+;
+var Assassin = (function (_super) {
+    __extends(Assassin, _super);
+    function Assassin(name) {
+        var _this = _super.call(this, name) || this;
+        _this.str = 13;
+        _this.dex = 15;
+        _this.intel = 12;
+        _this.vit = 12;
+        _this.block = 0;
+        _this.crit = 5;
+        _this.dodge = 0;
+        _this.resistFire = 1;
+        _this.resistIce = 1;
+        _this.resistLightning = 1;
+        _this.maxHp = _this.calculateHp();
+        _this.maxMana = _this.calculateMana();
+        _this.hp = _this.maxHp;
+        _this.mana = _this.maxMana;
+        return _this;
+    }
+    Assassin.prototype.levelUp = function () {
+        if (this.exp > this.maxExp) {
+            this.level += 1;
+            var extraExp = this.exp - this.maxExp;
+            this.exp = extraExp;
+            var newLevel = this.level - 1;
+            this.intel += 1;
+            this.dex += 2;
+            this.vit += 1;
+            this.str += 1;
+            if (this.level % 4 == 1) {
+                this.dex += 1;
+                this.vit += 2;
+                this.intel += 2;
+            }
+            else if (this.level % 2 == 1) {
+                this.str += 2;
+            }
+            else if (this.level % 2 == 1) {
+                this.dex += 1;
+            }
+            if (this.level % 4 == 0) {
+                this.crit += 2;
+            }
+            if (this.level % 6 == 0) {
+                this.resistFire += 1;
+                this.resistIce += 1;
+                this.resistLightning += 1;
+            }
+            this.maxHp = this.calculateHp();
+            this.hp = this.maxHp;
+            this.maxMana = this.calculateMana();
+            this.mana = this.maxMana;
+            this.readjustStats();
+        }
+    };
+    return Assassin;
+}(Player));
+;
+var Ninja = (function (_super) {
+    __extends(Ninja, _super);
+    function Ninja(name) {
+        var _this = _super.call(this, name) || this;
+        _this.str = 16;
+        _this.dex = 16;
+        _this.intel = 11;
+        _this.vit = 11;
+        _this.block = 0;
+        _this.crit = 2;
+        _this.dodge = 2;
+        _this.resistFire = 0;
+        _this.resistIce = 0;
+        _this.resistLightning = 0;
+        _this.maxHp = _this.calculateHp();
+        _this.maxMana = _this.calculateMana();
+        _this.hp = _this.maxHp;
+        _this.mana = _this.maxMana;
+        return _this;
+    }
+    Ninja.prototype.levelUp = function () {
+        if (this.exp > this.maxExp) {
+            this.level += 1;
+            var extraExp = this.exp - this.maxExp;
+            this.exp = extraExp;
+            var newLevel = this.level - 1;
+            this.intel += 1;
+            this.dex += 2;
+            this.vit += 1;
+            this.str += 2;
+            if (this.level % 4 == 1) {
+                this.intel += 1;
+            }
+            else if (this.level % 2 == 1) {
+                this.intel += 1;
+            }
+            else if (this.level % 2 == 1) {
+                this.dex += 1;
+                this.str += 1;
+                this.vit += 1;
+            }
+            if (this.level % 5 == 0) {
+                this.dodge += 1;
+                this.crit += 1;
+            }
+            if (this.level % 7 == 0) {
+                this.resistFire += 1;
+                this.resistIce += 1;
+                this.resistLightning += 1;
+            }
+            this.maxHp = this.calculateHp();
+            this.hp = this.maxHp;
+            this.maxMana = this.calculateMana();
+            this.mana = this.maxMana;
+            this.readjustStats();
+        }
+    };
+    return Ninja;
+}(Player));
+;
+var Spellblade = (function (_super) {
+    __extends(Spellblade, _super);
+    function Spellblade(name) {
+        var _this = _super.call(this, name) || this;
+        _this.str = 12;
+        _this.dex = 16;
+        _this.intel = 14;
+        _this.vit = 13;
+        _this.block = 0;
+        _this.crit = 2;
+        _this.dodge = 0;
+        _this.resistFire = 2;
+        _this.resistIce = 2;
+        _this.resistLightning = 2;
+        _this.maxHp = _this.calculateHp();
+        _this.maxMana = _this.calculateMana();
+        _this.hp = _this.maxHp;
+        _this.mana = _this.maxMana;
+        return _this;
+    }
+    Spellblade.prototype.levelUp = function () {
+        if (this.exp > this.maxExp) {
+            this.level += 1;
+            var extraExp = this.exp - this.maxExp;
+            this.exp = extraExp;
+            var newLevel = this.level - 1;
+            this.intel += 2;
+            this.dex += 2;
+            this.vit += 1;
+            this.str += 1;
+            if (this.level % 4 == 1) {
+                this.intel += 1;
+                this.vit += 1;
+            }
+            else if (this.level % 2 == 1) {
+                this.intel += 1;
+            }
+            else if (this.level % 2 == 1) {
+                this.dex += 1;
+                this.str += 1;
+                this.vit += 1;
+            }
+            if (this.level % 6 == 0) {
+                this.resistFire += 1;
+                this.resistIce += 1;
+                this.resistLightning += 1;
+                this.crit += 1;
+            }
+            this.maxHp = this.calculateHp();
+            this.hp = this.maxHp;
+            this.maxMana = this.calculateMana();
+            this.mana = this.maxMana;
+            this.readjustStats();
+        }
+    };
+    return Spellblade;
+}(Player));
+;
+var Hunter = (function (_super) {
+    __extends(Hunter, _super);
+    function Hunter(name) {
+        var _this = _super.call(this, name) || this;
+        _this.str = 13;
+        _this.dex = 15;
+        _this.intel = 13;
+        _this.vit = 12;
+        _this.block = 0;
+        _this.crit = 3;
+        _this.dodge = 1;
+        _this.resistFire = 0;
+        _this.resistIce = 0;
+        _this.resistLightning = 0;
+        _this.maxHp = _this.calculateHp();
+        _this.maxMana = _this.calculateMana();
+        _this.hp = _this.maxHp;
+        _this.mana = _this.maxMana;
+        return _this;
+    }
+    Hunter.prototype.levelUp = function () {
+        if (this.exp > this.maxExp) {
+            this.level += 1;
+            var extraExp = this.exp - this.maxExp;
+            this.exp = extraExp;
+            var newLevel = this.level - 1;
+            this.intel += 1;
+            this.dex += 2;
+            this.vit += 1;
+            this.str += 1;
+            if (this.level % 4 == 1) {
+                this.vit += 1;
+                this.intel += 1;
+                this.str += 1;
+            }
+            else if (this.level % 2 == 1) {
+                this.intel += 2;
+                this.str += 2;
+            }
+            else if (this.level % 2 == 1) {
+                this.dex += 1;
+            }
+            if (this.level % 5 == 0) {
+                this.crit += 1;
+            }
+            if (this.level % 8 == 0) {
+                this.resistFire += 1;
+                this.resistIce += 1;
+                this.resistLightning += 1;
+                this.dodge += 1;
+            }
+            this.maxHp = this.calculateHp();
+            this.hp = this.maxHp;
+            this.maxMana = this.calculateMana();
+            this.mana = this.maxMana;
+            this.readjustStats();
+        }
+    };
+    return Hunter;
+}(Player));
+;
+var Peltast = (function (_super) {
+    __extends(Peltast, _super);
+    function Peltast(name) {
+        var _this = _super.call(this, name) || this;
+        _this.str = 15;
+        _this.dex = 15;
+        _this.intel = 11;
+        _this.vit = 12;
+        _this.block = 0;
+        _this.crit = 4;
+        _this.dodge = 0;
+        _this.resistFire = 1;
+        _this.resistIce = 1;
+        _this.resistLightning = 1;
+        _this.maxHp = _this.calculateHp();
+        _this.maxMana = _this.calculateMana();
+        _this.hp = _this.maxHp;
+        _this.mana = _this.maxMana;
+        return _this;
+    }
+    Peltast.prototype.levelUp = function () {
+        if (this.exp > this.maxExp) {
+            this.level += 1;
+            var extraExp = this.exp - this.maxExp;
+            this.exp = extraExp;
+            var newLevel = this.level - 1;
+            this.intel += 1;
+            this.dex += 2;
+            this.vit += 1;
+            this.str += 2;
+            if (this.level % 4 == 1) {
+                this.vit += 1;
+            }
+            else if (this.level % 3 == 1) {
+                this.intel += 1;
+                this.vit += 1;
+            }
+            else if (this.level % 2 == 1) {
+            }
+            if (this.level % 5 == 0) {
+                this.crit += 1;
+            }
+            if (this.level % 10 == 0) {
+                this.resistFire += 1;
+                this.resistIce += 1;
+                this.resistLightning += 1;
+            }
+            if (this.level % 10 == 0) {
+                this.dodge += 1;
+            }
+            this.maxHp = this.calculateHp();
+            this.hp = this.maxHp;
+            this.maxMana = this.calculateMana();
+            this.mana = this.maxMana;
+            this.readjustStats();
+        }
+    };
+    return Peltast;
+}(Player));
+;
 var Rat = (function (_super) {
     __extends(Rat, _super);
     function Rat() {
@@ -895,6 +1329,27 @@ var Dwarf = (function (_super) {
     return Dwarf;
 }(Enemy));
 ;
+var Zombie = (function (_super) {
+    __extends(Zombie, _super);
+    function Zombie() {
+        var _this = _super.call(this, name) || this;
+        _this.name = "Zombie";
+        _this.hp = 300;
+        _this.maxHp = _this.hp;
+        _this.str = 25;
+        _this.dex = 18;
+        _this.intel = 5;
+        _this.vit = 30;
+        _this.defense = 0;
+        _this.block = 0;
+        _this.crit = 0;
+        _this.exp = 150;
+        _this.image = "./classes/character/enemy/zombie.jpg";
+        return _this;
+    }
+    return Zombie;
+}(Enemy));
+;
 var Equipment = (function (_super) {
     __extends(Equipment, _super);
     function Equipment() {
@@ -954,8 +1409,8 @@ var Cloth = (function (_super) {
     function Cloth() {
         var _this = _super.call(this) || this;
         _this.defense = 2;
-        _this.resistIce = 3;
-        _this.resistLightning = 1;
+        _this.resistIce = 0;
+        _this.resistLightning = 0;
         return _this;
     }
     return Cloth;
