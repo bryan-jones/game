@@ -1,3 +1,13 @@
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var express = require('express');
 var app = express();
 var serv = require('http').Server(app);
@@ -7,62 +17,67 @@ app.get('/', function (req, res) {
 });
 app.use('/client', express.static(__dirname + '/client'));
 var SOCKET_LIST = {};
-var Entity = function () {
-    var self = {
-        x: 250,
-        y: 250,
-        spdX: 0,
-        spdY: 0,
-        id: ''
+var playerList = {};
+/**
+ * Create a base class.
+ */
+var Entity = (function () {
+    function Entity() {
+        this.x = 250;
+        this.y = 250;
+        this.spdX = 0;
+        this.spdY = 0;
+    }
+    Entity.prototype.updatePosition = function () {
+        this.x += this.spdX;
+        this.y += this.spdY;
     };
-    self.update = function () {
-        self.updatePosition();
+    Entity.prototype.update = function () {
+        this.updatePosition();
     };
-    self.updatePosition = function () {
-        self.x += self.spdX;
-        self.y += self.spdY;
-    };
-};
-var Player = function (id) {
-    var self = new Entity();
-    self.id = id;
-    self.number = "" + Math.floor(10 * Math.random());
-    self.pressingRight = false;
-    self.pressingLeft = false,
-        self.pressingUp = false;
-    self.pressingDown = false;
-    self.maxSpd = 10;
-    var super_update = self.update;
-    self.update = function () {
-        self.updateSpd();
-        super_update();
-    };
-    self.updateSpd = function () {
-        if (self.pressingRight) {
-            self.spdX = self.maxSpd;
+    return Entity;
+}());
+/**
+ *
+ */
+var Player = (function (_super) {
+    __extends(Player, _super);
+    function Player(id) {
+        var _this = _super.call(this) || this;
+        _this.id = id;
+        _this.number = "" + Math.floor(10 * Math.random());
+        _this.pressingRight = false;
+        _this.pressingLeft = false,
+            _this.pressingUp = false;
+        _this.pressingDown = false;
+        _this.maxSpd = 10;
+        return _this;
+    }
+    Player.prototype.updateSpd = function () {
+        if (this.pressingRight) {
+            this.spdX = this.maxSpd;
         }
-        else if (self.pressingLeft) {
-            self.spdX = -self.maxSpd;
+        else if (this.pressingLeft) {
+            this.spdX = -this.maxSpd;
         }
         else {
-            self.spdX = 0;
+            this.spdX = 0;
         }
-        if (self.pressingUp) {
-            self.spdY = -self.maxSpd;
+        if (this.pressingUp) {
+            this.spdY = -this.maxSpd;
         }
-        else if (self.pressingDown) {
-            self.spdY = self.maxSpd;
+        else if (this.pressingDown) {
+            this.spdY = this.maxSpd;
         }
         else {
-            self.spdY = 0;
+            this.spdY = 0;
         }
     };
-    Player.list[id] = self;
-    return self;
-};
-Player.list = {};
-Player.onConnect = function (socket) {
-    var player = Player(socket.id);
+    return Player;
+}(Entity));
+var onConnect = function (socket) {
+    var player = new Player(socket.id);
+    playerList[socket.id] = player;
     socket.on('keyPress', function (data) {
         if (data.inputId === 'left') {
             player.pressingLeft = data.state;
@@ -78,17 +93,17 @@ Player.onConnect = function (socket) {
         }
     });
 };
-Player.onDisconnect = function (socket) {
-    delete Player.list[socket.id];
+var onDisconnect = function (socket) {
+    delete playerList[socket.id];
 };
-Player.update = function () {
+var update = function () {
     var pack = [];
-    for (var i in Player.list) {
-        var player = Player.list[i];
-        player.update();
+    for (var i in playerList) {
+        var player = playerList[i];
+        player.updateSpd();
         pack.push({
             x: player.x,
-            y: play.y,
+            y: player.y,
             number: player.number
         });
     }
@@ -104,22 +119,22 @@ io.on('connection', function (socket) {
         console.log('message: ' + msg);
         io.emit('chat message', msg);
     });
-    Player.onConnect(socket);
+    onConnect(socket);
     socket.on('disconnect', function () {
         delete SOCKET_LIST[socket.id];
-        Player.onDisconnect(socket);
+        onDisconnect(socket);
         console.log('a user disconnected');
     });
 });
 // Update loop.
 setInterval(function () {
-    var pack = Player.update();
+    var pack = update();
     // Send locations to each player.
     for (var i in SOCKET_LIST) {
         var socket = SOCKET_LIST[i];
         socket.emit('newPositions', pack);
     }
-}, 1000 / 30);
+}, 5000);
 serv.listen(2000, function () {
     console.log('listening on *:2000');
 });
