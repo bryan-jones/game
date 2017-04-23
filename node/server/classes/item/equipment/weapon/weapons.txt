@@ -22,7 +22,7 @@ Swords
     Dodge + 0
     Attack Speed 1600
 
-  Falcion
+  Falchion
     Damage + 8
     Block + 0
     Crit + 1
