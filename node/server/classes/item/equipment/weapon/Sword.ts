@@ -31,6 +31,7 @@ class longSword extends Weapon {
 };
 
 /**
+ * Create a scimitar class.
  */
 class Scimitar extends Weapon {
   
@@ -109,6 +110,8 @@ class giantsSword extends Weapon {
   constructor() {
     super();
     this.name = 'Giant\'s Sword';
+    this.damage = 16;
+    this.atkspd = 2800;
     this.crit = 2;
   }
 };
