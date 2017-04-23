@@ -3,10 +3,10 @@ $( document ).ready(function() {
   initUI();
 
   // Create the player.
-  var player = new Champion('Bartuc');
+  var player = new LightMage('Bryan');
   player.setImage('./classes/character/player.jpg');
   $('#user-name').text(player.getName());
-console.log('Player HP ' + player.getHp());
+
   // Create a club and equip it on the player.
   var club = new Club();
   player.equipWeapon(club);
@@ -14,13 +14,10 @@ console.log('Player HP ' + player.getHp());
   // Create some cloth armor and equip it.
   var cloth = new Cloth();
   player.equipArmor(cloth);
-console.log('Player HP ' + player.getHp());
+  
   // Render the player.
   player.render();
-  console.log('Player HP ' + player.getHp());
   updateStats(player);
-
-  console.log('Player HP ' + player.getHp());
 
   enemies = [];
 
@@ -39,6 +36,10 @@ console.log('Player HP ' + player.getHp());
   // Create an enemy.
   var dwarf = new Dwarf('Dwarf');
   enemies.push(dwarf);
+
+  // Create an enemy.
+  var zombie = new Zombie('Zombie');
+  enemies.push(zombie);
   
   $('#button').click(function() {
     var end = 0;

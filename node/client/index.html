@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <link href="/client/styles/main.css" rel="stylesheet" type="text/css">
+    <link href="/client/styles/styles.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div id="minimap">
+    </div>
+
+    <canvas id="ctx" width="500" height="500" style="border: 1px solid black;"></canvas>
+
+    <div id="chat-container">
+      <ul id="messages"></ul>
+      <form action="">
+        <input id="m" autocomplete="off" /><button>Send</button>
+      </form>
+    </div>
+    <div id="bottom-ui"></div>
+
+    <div id="user-bar-wrapper">
+      <div id="user-bar" class="menu">
+        <div id="level" class="bar">
+          <span id="user-level">0</span>
+        </div>
+        <div id="name" class="bar">
+          <span id="user-name">Unknown</span>
+        </div>
+        <div id="health" class="liquid-bar">
+          <div class="liquid-wrapper">
+            <div id="health-bar" class="bar"></div>
+            <span id="user-health" class="bar-text">0 / 0</span>
+          </div>
+        </div>
+        <div id="mana" class="liquid-bar">
+          <div class="liquid-wrapper">
+            <div id="mana-bar" class="bar"></div>
+            <span id="user-mana" class="bar-text">0 / 0</span>
+          </div>
+        </div>
+        <div id="experience" class="liquid-bar">
+          <div class="liquid-wrapper">
+            <div id="experience-bar" class="bar"></div>
+            <span id="user-experience" class="bar-text">Exp: 0 / 0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+    $(function () {
+        // Establish socket.io connection.
+        var socket = io();
+
+        // Create the canvas.
+        var ctx = document.getElementById('ctx').getContext('2d');
+
+        // Set the font (do this in css?).
+        ctx.font = '30px Arial';
+
+        // When new positions are set update the number's position.
+        socket.on('newPositions', function(data) {
+            ctx.clearRect(0,0,500,500);
+            for (var i =0; i < data.length;i++) {
+                ctx.fillText(data[i].number, data[i].x, data[i].y);
+            }
+        });
+
+        // Detect when keys are pressed.
+        document.onkeydown = function(event){
+          // Detect keypress with 'w' or the up arrow.
+          if (event.keyCode === 87 || event.keyCode === 38) {
+            socket.emit('keyPress',{
+              inputId:'up',
+              state: true
+            });
+          }
+          // Detect keypress with 's' or the down arrow.
+          if (event.keyCode === 83 || event.keyCode == 40) {
+            socket.emit('keyPress', {
+              inputId:'down',
+              state: true
+            });
+          }
+          // Detect keypress with 'a' or the left arrow.
+          if (event.keyCode === 65 || event.keyCode === 37) {
+            socket.emit('keyPress', {
+              inputId:'left',
+              state: true
+            });
+          }
+          // Detect keypress with 'd' or the right arrow.
+          if (event.keyCode === 68 || event.keyCode === 39) {
+            socket.emit('keyPress', {
+              inputId:'right',
+              state: true
+            });
+          }        
+        }
+
+        // Detect when keys are released.
+        document.onkeyup = function(event) {
+          // Detect keypress with 'w' or the up arrow.
+          if (event.keyCode === 87 || event.keyCode === 38) {
+            socket.emit('keyPress',{
+              inputId:'up',
+              state: false
+            });
+          }
+          // Detect keypress with 's' or the down arrow.
+          if (event.keyCode === 83 || event.keyCode == 40) {
+            socket.emit('keyPress', {
+              inputId:'down',
+              state: false
+            });
+          }
+          // Detect keypress with 'a' or the left arrow.
+          if (event.keyCode === 65 || event.keyCode === 37) {
+            socket.emit('keyPress', {
+              inputId:'left',
+              state: false
+            });
+          }
+          // Detect keypress with 'd' or the right arrow.
+          if (event.keyCode === 68 || event.keyCode === 39) {
+            socket.emit('keyPress', {
+              inputId:'right',
+              state: false
+            });
+          }
+        }
+
+
+        // Client chat.
+        $('form').submit(function() {
+            socket.emit('chat message', $('#m').val());
+            $('#m').val('');
+            return false;
+        });
+
+        socket.on('chat message', function(msg) {
+            $('#messages').append($('<li>').text(msg));
+        });
+
+    });
+    </script>
+  </body>
+</html>
