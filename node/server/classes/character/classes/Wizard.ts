@@ -1,7 +1,7 @@
 /**
- * Create a warrior class.
+ * Create a wizard class.
  */
-class Warrior extends Player {
+class Wizard extends Player {
   
   /**
    * Set some default stats based off of class.
@@ -10,16 +10,16 @@ class Warrior extends Player {
    */
   constructor(name: string) {
     super(name);
-    this.str = 16;
+    this.str = 10;
     this.dex = 14;
-    this.intel = 11;
-    this.vit = 14;
+    this.intel = 17;
+    this.vit = 13;
     this.block = 0;
-    this.crit = 1;
+    this.crit = 2;
     this.dodge = 0;
-    this.resistFire = 3;
-    this.resistIce = 2;
-    this.resistLightning = 1;
+    this.resistFire = 2;
+    this.resistIce = 0;
+    this.resistLightning = 5;
 
     this.maxHp = this.calculateHp();
     this.maxMana = this.calculateMana();
@@ -27,7 +27,7 @@ class Warrior extends Player {
     this.mana = this.maxMana;
   }
 
-    levelUp() {
+  levelUp() {
     if (this.exp > this.maxExp) {
       // Add a level and reset exp.
       this.level += 1;
@@ -37,39 +37,29 @@ class Warrior extends Player {
 
       // Update base stats.
       var newLevel = this.level - 1;
-      this.intel += 1;
+      this.intel += 3;
+      this.dex += 1;
+      this.vit += 1;
+      this.str += 1;
 
-      // Dexterity and strength increase by 2 every other level.
-      if (this.level % 2 == 1) {
-        this.str += 2;
-        this.dex += 2;
-        this.vit += 2;
+      // Every five levels gain an additional dex.
+      if (this.level % 5 == 1) {
+        this.vit += 1;
       } else if (this.level % 3 == 1) {
-        // Every three levels also add 2 dex and vit and 4 str.
-        this.str += 4;
-        this.dex += 2;
-        this.vit += 2;
-      } else {
-        this.vit += 2;
+        // Every three levesl gain additional dex.
         this.dex += 1;
-        this.str += 1;
       }
 
-      // Every 4 levels the Warrior gains 1 to fire resist.
+      // Every 4 levels gain 1 to all resistances.
       if (this.level % 4 == 0) {
-        this.resistFire += 1;
-      }
-
-      // Every 5 levels the Warrior gains 1 ice resist and 1 crit.
-      if (this.level % 5 == 0) {
-        this.resistIce += 1;
-        this.crit += 1;
-      }
-
-      // Every 6 levels the KWarrior gains 1 lightning resist and 1 block.
-      if (this.level % 5 == 0) {
         this.resistLightning += 1;
-        this.block += 1;
+      }
+
+      // Every 6 levels gain 1 to crit.
+      if (this.level % 6 == 0) {
+        this.crit += 1;
+        this.resistFire += 1;
+        this.resistLightning += 1;
       }
 
       // Update health and mana.

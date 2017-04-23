@@ -27,6 +27,20 @@ class Player extends Character {
     super(name);
     this.exp = 0;
     this.maxExp = 200;
+    this.maxHpUp = 0;
+    this.maxManaUp = 0;
+    this.strUp = 0;
+    this.dexUp = 0;
+    this.intelUp = 0;
+    this.vitUp = 0;
+    this.defenseUp = 0;
+    this.blockUp = 0;
+    this.dodgeUp = 0;
+    this.critUp = 0;
+    this.resistFireUp = 0;
+    this.resistIceUp = 0;
+    this.resistLightningUp = 0;
+    this.lifestealUp = 0;
   }
 
   // Declare getters.

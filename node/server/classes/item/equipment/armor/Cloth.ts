@@ -9,7 +9,7 @@ class Cloth extends Armor {
   constructor() {
     super();
     this.defense = 2;
-    this.resistIce = 3;
-    this.resistLightning = 1;
+    this.resistIce = 0;
+    this.resistLightning = 0;
   }
 };

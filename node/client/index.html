@@ -2,241 +2,11 @@
 <html>
   <head>
     <title>Socket.IO chat</title>
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; }
-      form {
-          background: #000;
-          padding: 3px;
-          position: absolute;
-          bottom: 0;
-          width: 100%;
-          border-radius: 8px;
-      }
-      form input {
-          border: 0;
-          padding: 10px;
-          width: 90%;
-          margin-right: .5%;
-          border-radius: 7px;
-          background-color: red;
-      }
-      form button {
-        width: 9%;
-        background: rgb(130, 224, 255);
-        border: none;
-        padding: 10px 0;
-        border-radius: 10px;
-        text-align: center;
-    }
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
-      #chat-container {
-        width: 50vw;
-        /* background: red; */
-        height: 25vh;
-        border-radius: 6px;
-        position: fixed;
-        bottom: 4em;
-        left: 1em;
-        max-width: 500px;
-        box-shadow: 0px 0px 25px 6px tan;
-    } 
-
-
-    body {
-  margin: 0 0 75px 0;
-}
-
-ul {
-  margin-top: 0;
-  padding: 0;
-}
-
-#user-bar-wrapper * {
-  -moz-user-select: none;
-  user-select: none;
-}
-
-#user-bar-wrapper {
-  background-color: #ddd;
-  border-bottom: 1px solid #bbb;
-  bottom: 0;
-  height: 50px;
-  position: fixed;
-  width: 100%;
-}
-
-#user-bar {
-  margin: 0;
-  position: relative;
-}
-
-#user-bar div {
-  text-shadow: -1px -1px 0 #aaa, 1px 1px 0 #eee;
-}
-
-#user-bar > div {
-  cursor: pointer;
-  display: block;
-  float: left;
-  padding: 5px 20px;
-  position: relative;
-  width: auto;
-}
-
-#user-bar #level,
-#user-bar #name {
-  font-size: 160%;
-  padding-top: 10px;
-}
-
-.liquid-wrapper {
-  background-color: #777;
-  border: 1px solid #555;
-  border-radius: 10px;
-  display: block;
-  height: 39px;
-  overflow: hidden;
-  position: relative;
-  width: 200px;
-}
-
-.bar {
-  display: absolute;
-  height: inherit;
-  width: 100%;
-}
-
-#health-bar {
-  background-color: #a00;
-}
-
-#mana-bar {
-  background-color: #00a;
-}
-
-#experience-bar {
-  background-color: #0a0;
-  width: 0;
-}
-
-.bar-text {
-  bottom: 9px;
-  color: #fff;
-  position: absolute;
-  text-align: center;
-  text-shadow: none;
-  width: 100%;
-  z-index: 5;
-}
-
-#save {
-  color: #aaa;
-  cursor: default;
-}
-
-#save:hover {
-  background-color: transparent !important;
-}
-
-#new-prompt {
-  background-color: #ddd;
-  border: 1px solid #bbb;
-  box-shadow: 5px 5px 5px 0 #888;
-  height: 80vh;
-  left: 10vw;
-  position: absolute;
-  top: calc(10vh + 20px);
-  width: 80vw;
-  z-index: 10;
-}
-
-#new-prompt h1 {
-  padding-left: 20px;
-}
-
-#new-prompt label {
-  padding-left: 20px;
-  padding-right: 8px;
-  width: 100%;
-}
-
-#new-prompt input {
-  margin-bottom: 10px;
-}
-
-#button {
-  background-color: #a00;
-  border: 1px solid #000;
-  clear: both;
-  color: #fff;
-  cursor: pointer;
-  font-size: 150%;
-  margin: 30px auto 10px;
-  padding: 20px 30px;
-  text-align: center;
-  width: 200px;
-}
-
-.button:hover {
-  background-color: #600;
-}
-
-.dodged {
-  color: #00c;
-}
-
-.crit {
-  color: #c00;
-}
-
-.blocked {
-  color: #d0d;
-}
-
-#text {
-  text-align: center;
-}
-
-#left {
-  float: left;
-  width: 50%;
-}
-
- #left img {
-   max-height: 30vh;
-   overflow: hidden;
-   width: auto;
- }
-
-#right {
-  float: left;
-  width: 50%;
-}
-
-#right img {
-   max-height: 30vh;
-   overflow: hidden;
-   width: auto;
-}
-
-#minimap {
-    border: 1px solid black;
-    height: 250px;
-    width: 250px;
-    position: absolute;
-    top: 1em;
-    right: 1em;
-}
-
-    </style>
+    <link href="/client/styles/main.css" rel="stylesheet" type="text/css">
+    <link href="/client/styles/styles.css" rel="stylesheet" type="text/css">
   </head>
   <body>
-
     <div id="minimap">
-
     </div>
 
     <canvas id="ctx" width="500" height="500" style="border: 1px solid black;"></canvas>
@@ -247,10 +17,7 @@ ul {
         <input id="m" autocomplete="off" /><button>Send</button>
       </form>
     </div>
-    <div id="bottom-ui">
-      
-    </div>
-
+    <div id="bottom-ui"></div>
 
     <div id="user-bar-wrapper">
       <div id="user-bar" class="menu">
@@ -280,96 +47,105 @@ ul {
         </div>
       </div>
     </div>
-
-
-
-
     
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
     $(function () {
+        // Establish socket.io connection.
         var socket = io();
+
+        // Create the canvas.
         var ctx = document.getElementById('ctx').getContext('2d');
+
+        // Set the font (do this in css?).
         ctx.font = '30px Arial';
 
-        socket.on('newPositions', function(data){
-          console.log(data)
+        // When new positions are set update the number's position.
+        socket.on('newPositions', function(data) {
             ctx.clearRect(0,0,500,500);
-            for (var i =0; i <data.length;i++) {
+            for (var i =0; i < data.length;i++) {
                 ctx.fillText(data[i].number, data[i].x, data[i].y);
             }
-            
         });
 
+        // Detect when keys are pressed.
         document.onkeydown = function(event){
-            if(event.keyCode === 87){ //w
-                socket.emit('keyPress',{
-                    inputId:'up',
-                    state: true
-                })
-            }
-            if(event.keyCode === 83){ //s
-                socket.emit('keyPress',{
-                    inputId:'down',
-                    state: true
-                })
-            }
-            if(event.keyCode === 65){ //a
-                socket.emit('keyPress',{
-                    inputId:'left',
-                    state: true
-                })
-            }
-            if(event.keyCode === 68){ //d
-                socket.emit('keyPress',{
-                    inputId:'right',
-                    state: true
-                })
-            }
+          // Detect keypress with 'w' or the up arrow.
+          if (event.keyCode === 87 || event.keyCode === 38) {
+            socket.emit('keyPress',{
+              inputId:'up',
+              state: true
+            });
+          }
+          // Detect keypress with 's' or the down arrow.
+          if (event.keyCode === 83 || event.keyCode == 40) {
+            socket.emit('keyPress', {
+              inputId:'down',
+              state: true
+            });
+          }
+          // Detect keypress with 'a' or the left arrow.
+          if (event.keyCode === 65 || event.keyCode === 37) {
+            socket.emit('keyPress', {
+              inputId:'left',
+              state: true
+            });
+          }
+          // Detect keypress with 'd' or the right arrow.
+          if (event.keyCode === 68 || event.keyCode === 39) {
+            socket.emit('keyPress', {
+              inputId:'right',
+              state: true
+            });
+          }        
         }
 
-        document.onkeyup = function(event){
-            if(event.keyCode === 87){ //w
-                socket.emit('keyPress',{
-                    inputId:'up',
-                    state: false
-                })
-            }
-            if(event.keyCode === 83){ //s
-                socket.emit('keyPress',{
-                    inputId:'down',
-                    state: false
-                })
-            }
-            if(event.keyCode === 65){ //a
-                socket.emit('keyPress',{
-                    inputId:'left',
-                    state: false
-                })
-            }
-            if(event.keyCode === 68){ //d
-                socket.emit('keyPress',{
-                    inputId:'right',
-                    state: false
-                })
-            }
+        // Detect when keys are released.
+        document.onkeyup = function(event) {
+          // Detect keypress with 'w' or the up arrow.
+          if (event.keyCode === 87 || event.keyCode === 38) {
+            socket.emit('keyPress',{
+              inputId:'up',
+              state: false
+            });
+          }
+          // Detect keypress with 's' or the down arrow.
+          if (event.keyCode === 83 || event.keyCode == 40) {
+            socket.emit('keyPress', {
+              inputId:'down',
+              state: false
+            });
+          }
+          // Detect keypress with 'a' or the left arrow.
+          if (event.keyCode === 65 || event.keyCode === 37) {
+            socket.emit('keyPress', {
+              inputId:'left',
+              state: false
+            });
+          }
+          // Detect keypress with 'd' or the right arrow.
+          if (event.keyCode === 68 || event.keyCode === 39) {
+            socket.emit('keyPress', {
+              inputId:'right',
+              state: false
+            });
+          }
         }
 
 
         // Client chat.
-        $('form').submit(function(){
+        $('form').submit(function() {
             socket.emit('chat message', $('#m').val());
             $('#m').val('');
             return false;
         });
 
-        socket.on('chat message', function(msg){
+        socket.on('chat message', function(msg) {
             $('#messages').append($('<li>').text(msg));
         });
 
     });
     </script>
-
   </body>
 </html>
