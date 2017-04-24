@@ -22,7 +22,7 @@ Swords
     Dodge + 0
     Attack Speed 1600
 
-  Falcion
+  Falchion
     Damage + 8
     Block + 0
     Crit + 1
@@ -201,7 +201,7 @@ Bows
     Dodge + 0
     Attack Speed 1800
 
-  Cross Bow
+  Crossbow
     Damage + 12
     Block + 0
     Crit + 3
@@ -216,7 +216,7 @@ Bows
     Attack Speed 1800
 
 Staves
-  Broom Stick
+  Broomstick
     Damage + 2
     Block + 0
     Crit + 0
